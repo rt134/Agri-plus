@@ -1,14 +1,23 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require("body-parser");
+
 const session =  require("express-session");
 const mongoDBSession = require('connect-mongodb-session')(session);
+// const connectStore = require("connect-mongo");
+// const MongoStore = connectStore(session);
+
+const cookieParser = require("cookie-parser");
 const Secret = require("./config/database").SECRET;
 const Mongo_url = require("./config/database").MONGO_DB;
 const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 8000;
+
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 
 
@@ -39,17 +48,24 @@ mongoose.connect(Mongo_url,{
 
 
 // Session
-const store = new mongoDBSession({
-    uri : Mongo_url,
-    collection : "Sessions",
-})
 
 app.use(session({
-    secret : Secret,
-    resave : false,
-    saveUninitialized : false,
-    store : store,
-}))
+  name: "session",
+  secret: Secret,
+  saveUninitialized: false,
+  resave: false,
+  store: new mongoDBSession({
+    mongooseConnection: Mongo_url,
+    collection: 'session',
+    ttl: parseInt(1000 * 60 * 60 * 2) / 1000
+  }),
+  cookie: {
+    sameSite: true,
+    secure: true,
+    maxAge: parseInt(1000 * 60 * 60 * 2)
+  }
+}));
+
 
 
 // Server Listening 
