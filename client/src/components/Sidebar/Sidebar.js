@@ -4,7 +4,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import { NavLink, useLocation } from "react-router-dom";
 // @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, rgbToHex } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
 import List from "@material-ui/core/List";
@@ -26,9 +26,9 @@ export default function Sidebar(props) {
   function activeRoute(routeName) {
     return location.pathname === routeName;
   }
-  const { color, logo, image, logoText, routes } = props;
+  const { color, logo, image, routes } = props;
   var links = (
-    <List className={classes.list}>
+    <List className={classes.list} >
       {routes.map((prop, key) => {
         var activePro = " ";
         var listItemClasses;
@@ -122,7 +122,7 @@ export default function Sidebar(props) {
           {image !== undefined ? (
             <div
               className={classes.background}
-              // style={{ backgroundImage: "url(" + image + ")" }}
+              style={{ backgroundColor: "purple" }}
             />
           ) : null}
         </Drawer>
@@ -140,12 +140,12 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
-          {image !== undefined ? (
+          {/* {image !== undefined ? ( */}
             <div
               className={classes.background}
-              // style={{ backgroundImage: "url(" + image + ")" }}
+              style={{ backgroundColor: color }}
             />
-          ) : null}
+          {/* ) : null} */}
         </Drawer>
       </Hidden>
     </div>

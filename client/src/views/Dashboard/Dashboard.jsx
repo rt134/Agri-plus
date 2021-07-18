@@ -91,7 +91,7 @@ export default function Dashboard() {
           <Card>
             <CardHeader color="danger" stats icon>
               <CardIcon color="danger">
-                <Icon>info_outline</Icon>
+                <AttachMoneyIcon />
               </CardIcon>
               <p className={classes.cardCategory}>Fixed Issues</p>
               <h3 className={classes.cardTitle}>75</h3>
@@ -114,10 +114,10 @@ export default function Dashboard() {
               <h3 className={classes.cardTitle}>+245</h3>
             </CardHeader>
             <CardFooter stats>
-              <div className={classes.stats}>
+              {/* <div className={classes.stats}>
                 <Update />
                 Just Updated
-              </div>
+              </div> */}
             </CardFooter>
           </Card>
         </GridItem>
