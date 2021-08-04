@@ -1,114 +1,89 @@
-/*!
-
-=========================================================
-* Material Dashboard React - v1.10.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard-react
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/material-dashboard-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 // @material-ui/icons
-import Dashboard from "@material-ui/icons/Dashboard";
-// import Person from "@material-ui/icons/Person";
-// import LibraryBooks from "@material-ui/icons/LibraryBooks";
-// import BubbleChart from "@material-ui/icons/BubbleChart";
-// import LocationOn from "@material-ui/icons/LocationOn";
-// import Notifications from "@material-ui/icons/Notifications";
-// import Unarchive from "@material-ui/icons/Unarchive";
-// import Language from "@material-ui/icons/Language";
-// core components/views for Admin layout
+
+import ChatPage from './views/Chat/Chat'
 import DashboardPage from "./views/Dashboard/Dashboard";
-// import UserProfile from "views/UserProfile/UserProfile.js";
-// import TableList from "views/TableList/TableList.js";
-// import Typography from "views/Typography/Typography.js";
-// import Icons from "views/Icons/Icons.js";
-// import Maps from "views/Maps/Maps.js";
-// import NotificationsPage from "views/Notifications/Notifications.js";
-// import UpgradeToPro from "views/UpgradeToPro/UpgradeToPro.js";
-// // core components/views for RTL layout
-// import RTLPage from "views/RTLPage/RTLPage.js";
+import ProfilePage from "./views/Profile/Profile"
+import DiseaseDetectionPage from "./views/DiseaseDetection/DiseaseDetection"
+import ContractFarmingPage from "./views/ContractFarming/ContractFarming"
+
+
+// Icons
+import Dashboard from "@material-ui/icons/Dashboard";
+import Person from "@material-ui/icons/Person";
+import GrainIcon from '@material-ui/icons/Grain';
+import EcoIcon from '@material-ui/icons/Eco';
+import EmojiNatureIcon from '@material-ui/icons/EmojiNature';
+import MessageIcon from '@material-ui/icons/Message';
+import PermPhoneMsgIcon from '@material-ui/icons/PermPhoneMsg';
+import SearchIcon from '@material-ui/icons/Search';
+import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
+
 
 const dashboardRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
-    rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: DashboardPage,
-    layout: "/admin",
+    layout: "/client",
   },
-  // {
-  //   path: "/user",
-  //   name: "User Profile",
-  //   rtlName: "ملف تعريفي للمستخدم",
-  //   icon: Person,
-  //   component: UserProfile,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/table",
-  //   name: "Table List",
-  //   rtlName: "قائمة الجدول",
-  //   icon: "content_paste",
-  //   component: TableList,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/typography",
-  //   name: "Typography",
-  //   rtlName: "طباعة",
-  //   icon: LibraryBooks,
-  //   component: Typography,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/icons",
-  //   name: "Icons",
-  //   rtlName: "الرموز",
-  //   icon: BubbleChart,
-  //   component: Icons,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/maps",
-  //   name: "Maps",
-  //   rtlName: "خرائط",
-  //   icon: LocationOn,
-  //   component: Maps,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/notifications",
-  //   name: "Notifications",
-  //   rtlName: "إخطارات",
-  //   icon: Notifications,
-  //   component: NotificationsPage,
-  //   layout: "/admin",
-  // },
-  // {
-  //   path: "/rtl-page",
-  //   name: "RTL Support",
-  //   rtlName: "پشتیبانی از راست به چپ",
-  //   icon: Language,
-  //   component: RTLPage,
-  //   layout: "/rtl",
-  // },
-  // {
-  //   path: "/upgrade-to-pro",
-  //   name: "Upgrade To PRO",
-  //   rtlName: "التطور للاحترافية",
-  //   icon: Unarchive,
-  //   component: UpgradeToPro,
-  //   layout: "/admin",
-  // },
+  {
+    path: "/profile",
+    name: "Profile",
+    icon: Person,
+    component: ProfilePage,
+    layout: "/client",
+  },
+  {
+    path: "/detectdisease",
+    name: "Detect disease",
+    icon: SearchIcon,
+    component: DiseaseDetectionPage,
+    layout: "/client",
+  },
+  {
+    path: "/freshvegetables",
+    name: "Fresh vegetables",
+    icon: EcoIcon,
+    component: DashboardPage,
+    layout: "/client",
+  },
+  {
+    path: "/farmgoods",
+    name: "Farm Goods",
+    icon: GrainIcon,
+    component: DashboardPage,
+    layout: "/client",
+  },
+  {
+    path: "/pesticides",
+    name: "Pesticides",
+    icon: EmojiNatureIcon,
+    component: DashboardPage,
+    layout: "/client",
+  },
+  {
+    path: "/contractfarming",
+    name: "Contract Farming",
+    icon: LibraryBooksIcon,
+    component: ContractFarmingPage,
+    layout: "/client",
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    icon: MessageIcon,
+    component: ChatPage,
+    layout: "/client",
+  },
+  {
+    path: "/support",
+    name: "Support",
+    icon: PermPhoneMsgIcon,
+    component: DashboardPage,
+    layout: "/client",
+  },
+  
 ];
 
 export default dashboardRoutes;

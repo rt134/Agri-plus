@@ -23,7 +23,7 @@ const sidebarStyle = (theme) => ({
     bottom: "0",
     left: "0",
     zIndex: "1",
-    ...boxShadow,
+    // ...boxShadow,
     width: drawerWidth,
     [theme.breakpoints.up("md")]: {
       width: drawerWidth,
@@ -87,7 +87,7 @@ const sidebarStyle = (theme) => ({
     textDecoration: "none",
     backgroundColor: "transparent",
     "&,&:hover": {
-      color: whiteColor,
+      color: blackColor,
     },
   },
   logoLinkRTL: {
@@ -124,8 +124,8 @@ const sidebarStyle = (theme) => ({
       height: "100%",
       content: '""',
       display: "block",
-      background: blackColor,
-      opacity: ".8",
+      background: whiteColor,
+      opacity: ".5",
     },
   },
   list: {
@@ -142,7 +142,7 @@ const sidebarStyle = (theme) => ({
     display: "block",
     textDecoration: "none",
     "&:hover,&:focus,&:visited,&": {
-      color: whiteColor,
+      color: blackColor,
     },
   },
   itemLink: {
@@ -165,7 +165,7 @@ const sidebarStyle = (theme) => ({
     marginRight: "15px",
     textAlign: "center",
     verticalAlign: "middle",
-    color: "rgba(" + hexToRgb(whiteColor) + ", 0.8)",
+    color: "rgba(" + hexToRgb(blackColor) + ", 0.8)",
   },
   itemIconRTL: {
     marginRight: "3px",
@@ -177,7 +177,7 @@ const sidebarStyle = (theme) => ({
     margin: "0",
     lineHeight: "30px",
     fontSize: "14px",
-    color: whiteColor,
+    color: blackColor,
   },
   itemTextRTL: {
     textAlign: "right",
@@ -237,6 +237,7 @@ const sidebarStyle = (theme) => ({
         ",.2)",
     },
   },
+
   orange: {
     backgroundColor: warningColor[0],
     boxShadow:
