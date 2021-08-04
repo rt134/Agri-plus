@@ -49,34 +49,6 @@ export default function AdminNavbarLinks() {
   };
   return (
     <div>
-      {/* <div className={classes.searchWrapper}>
-        <CustomInput
-          formControlProps={{
-            className: classes.margin + " " + classes.search,
-          }}
-          inputProps={{
-            placeholder: "Search",
-            inputProps: {
-              "aria-label": "Search",
-            },
-          }}
-        />
-        <Button color="white" aria-label="edit" justIcon round>
-          <Search />
-        </Button>
-      </div> */}
-      {/* <Button
-        color={window.innerWidth > 959 ? "transparent" : "white"}
-        justIcon={window.innerWidth > 959}
-        simple={!(window.innerWidth > 959)}
-        aria-label="Dashboard"
-        className={classes.buttonLink}
-      >
-        <Dashboard className={classes.icons} />
-        <Hidden mdUp implementation="css">
-          <p className={classes.linkText}>Dashboard</p>
-        </Hidden>
-      </Button> */}
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -86,6 +58,7 @@ export default function AdminNavbarLinks() {
           aria-haspopup="true"
           onClick={handleClickNotification}
           className={classes.buttonLink}
+          style={{color : "black"}}
         >
           <Notifications className={classes.icons} />
           {/* <span className={classes.notifications}>5</span> */}
@@ -164,6 +137,7 @@ export default function AdminNavbarLinks() {
           aria-haspopup="true"
           onClick={handleClickProfile}
           className={classes.buttonLink}
+          style={{color : "black"}}
         >
           <Person className={classes.icons} />
           <Hidden mdUp implementation="css">

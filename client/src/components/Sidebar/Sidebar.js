@@ -88,11 +88,9 @@ export default function Sidebar(props) {
         <Drawer
           variant="temporary"
           anchor="left"
-          // open={props.open}
+          open={props.open}
           classes={{
-            paper: classNames(classes.drawerPaper, {
-              [classes.drawerPaperRTL]: props.rtlActive,
-            }),
+            paper: classNames(classes.drawerPaper),
           }}
           onClose={props.handleDrawerToggle}
           ModalProps={{

@@ -7,8 +7,8 @@ import {
   successColor,
   warningColor,
   dangerColor,
-  whiteColor,
   grayColor,
+  blackColor,
 } from "../../../../assets/jss/material-dashboard-react.js";
 
 const headerStyle = () => ({
@@ -54,27 +54,27 @@ const headerStyle = () => ({
   },
   primary: {
     backgroundColor: primaryColor[0],
-    color: whiteColor,
+    color: blackColor,
     ...defaultBoxShadow,
   },
   info: {
     backgroundColor: infoColor[0],
-    color: whiteColor,
+    color: blackColor,
     ...defaultBoxShadow,
   },
   success: {
     backgroundColor: successColor[0],
-    color: whiteColor,
+    color: blackColor,
     ...defaultBoxShadow,
   },
   warning: {
     backgroundColor: warningColor[0],
-    color: whiteColor,
+    color: blackColor,
     ...defaultBoxShadow,
   },
   danger: {
     backgroundColor: dangerColor[0],
-    color: whiteColor,
+    color: blackColor,
     ...defaultBoxShadow,
   },
 });

@@ -1,5 +1,5 @@
 import {
-  primaryColor,
+  infoColor,
   whiteColor,
   primaryBoxShadow,
   defaultFont,
@@ -31,7 +31,7 @@ const dropdownStyle = (theme) => ({
   linkText: {
     zIndex: "4",
     ...defaultFont,
-    fontSize: "14px",
+    // fontSize: "14px",
   },
   popperClose: {
     pointerEvents: "none",
@@ -67,11 +67,12 @@ const dropdownStyle = (theme) => ({
         padding: "0px !important",
         backgroundColor: "transparent !important",
         "& ul li": {
-          color: whiteColor + " !important",
+          color: blackColor + " !important",
           margin: "10px 15px 0!important",
           padding: "10px 15px !important",
           "&:hover": {
-            backgroundColor: "hsla(0,0%,78%,.2)",
+            backgroundColor: infoColor[0],
+            color : whiteColor + " !important",
             boxShadow: "none",
           },
         },
@@ -109,12 +110,12 @@ const dropdownStyle = (theme) => ({
     clear: "both",
     fontWeight: "400",
     lineHeight: "1.42857143",
-    color: grayColor[8],
+    color: blackColor,
     whiteSpace: "nowrap",
     height: "unset",
     minHeight: "unset",
     "&:hover": {
-      backgroundColor: primaryColor[0],
+      backgroundColor: infoColor[0],
       color: whiteColor,
       ...primaryBoxShadow,
     },
