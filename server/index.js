@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const mongoDBSession = require('connect-mongodb-session')(session);
 
+
 const cookieParser = require("cookie-parser");
 const Secret = require("./config/database").SECRET;
 const Mongo_url = require("./config/database").MONGO_DB;
@@ -20,35 +21,34 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 
-
+// Cors
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:3001"],
+    credentials: true,
+    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: ['Content-Type'],
+    exposedHeaders: ['Content-Type']
+  })
+);
 
 // Linking Routes
 app.use("/", require("./routes/index"));
 
 
-// Cors
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    credentials: true,
-    methods: ["GET", "PUT", "POST", "DELETE", "OPTIONS"],
-  })
-);
-
-
 // Connecting to database
-mongoose.set("useFindAndModify", false);
 mongoose.connect(Mongo_url, {
   useNewUrlParser: true,
-  useCreateIndex: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
+  useFindAndModify: false
 }).then(() => {
-  console.log("Connected to Database");
+  console.log('Connected To database')
+}).catch((err) => {
+  console.log(err)
 });
 
-
 // Session
-
 app.use(session({
   name: "session",
   secret: Secret,

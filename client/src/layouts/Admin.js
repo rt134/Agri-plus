@@ -15,11 +15,16 @@ import routes from "../routes.js";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle.js";
 // import bgImage from "../assets/img/sidebar-2.jpg";
 import logo from "../assets/img/reactlogo.png";
+// import Login from "../views/Login/Login"
 
 let ps;
 
 const switchRoutes = (
   <Switch>
+
+    {/* <Route includes path = '/client/login' component = {Login}></Route> */}
+
+
     {routes.map((prop, key) => {
       if (prop.layout === "/client") {
         return (

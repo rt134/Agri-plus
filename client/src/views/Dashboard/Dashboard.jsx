@@ -53,9 +53,9 @@ export default function Dashboard() {
             <CardIcon color="warning">
                 <Store />
               </CardIcon>
-              <p className={classes.cardCategory}>Pending Orders</p>
+              <p className={classes.cardCategory}>Contracts</p>
               <h3 className={classes.cardTitle}>
-                490
+                4
               </h3>
             </CardHeader>
             <CardFooter stats>
@@ -76,8 +76,8 @@ export default function Dashboard() {
               <CardIcon color="success">
                 <AttachMoneyIcon />
               </CardIcon>
-              <p className={classes.cardCategory}>Revenue</p>
-              <h3 className={classes.cardTitle}>$34,245</h3>
+              <p className={classes.cardCategory}>Cart</p>
+              <h3 className={classes.cardTitle}>24</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
@@ -110,8 +110,8 @@ export default function Dashboard() {
               <CardIcon color="info">
                 <Accessibility />
               </CardIcon>
-              <p className={classes.cardCategory}>Followers</p>
-              <h3 className={classes.cardTitle}>+245</h3>
+              <p className={classes.cardCategory}>Rent Products</p>
+              <h3 className={classes.cardTitle}>45</h3>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>
@@ -240,10 +240,32 @@ export default function Dashboard() {
         </GridItem> */}
         <GridItem xs={12} sm={12} md={6}>
           <Card>
-            <CardHeader color="warning">
+            <CardHeader color="success">
               <h4 className={classes.cardTitleWhite}>Pending orders</h4>
               <p className={classes.cardCategoryWhite}>
                 Orders yet to fulfil
+              </p>
+            </CardHeader>
+            <CardBody>
+              <Table
+                tableHeaderColor="warning"
+                tableHead={["S.No", "Name", "price"]}
+                tableData={[
+                  ["1", "Dakota Rice", "$36,738"],
+                  ["2", "Minerva Hooper", "$23,789"],
+                  ["3", "Sage Rodriguez", "$56,142"],
+                  ["4", "Philip Chaney", "$38,735"],
+                ]}
+              />
+            </CardBody>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={12} md={6}>
+          <Card>
+            <CardHeader color="rose">
+              <h4 className={classes.cardTitleWhite}>Order History</h4>
+              <p className={classes.cardCategoryWhite}>
+                Completed Orders
               </p>
             </CardHeader>
             <CardBody>

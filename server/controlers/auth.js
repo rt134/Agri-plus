@@ -1,36 +1,72 @@
 const express = require('express');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const User = require("../models/User");
+const bcrypt = require('bcryptjs');
 
 // Register User
 module.exports.register = async(req, res) => {
-    const { name, email, password} = req.body;
-
+    
     try{
+        const { name, email, password} = req.body;
         let user = await User.findOne({email});
         if(user){
             return res.status(200).json({
                 message : "User already exists",
+                user
             })
         }
+        console.log(req.body);
 
         user = new User({
             name,
             email,
             password,
         });
-        await user.save();
-        return res.status(200).json({
-            message : "Registered Successfully",
-        });
+
+        //  Crating Hash Salt
+        bcrypt.genSalt(10, (err,salt) => {
+
+            bcrypt.hash(user.password, salt, async(err,hash) => {
+
+                if(err) throw err;
+                user.password = hash;
+                await user.save()
+                .then(user => {
+
+                    jwt.sign({
+                        id : user.id,
+                        name : user.name,
+                        email : user.email,
+                    },process.env.ACCESS_TOKEN_SECRET,
+                    {expiresIn : 3600},
+
+                    (err,token) => {
+                        if(err) throw err;
+                        return res.status(200).json({
+                            message : "Registered Successfully",
+                            token : token,
+                            user : {
+                                id : user.id,
+                                name : user.name,
+                                email : user.email
+                            }
+                        })
+                    })
+
+                })
+            })
+        })
+        
     }catch(err){
-        res.status(500).json({message : "Error in registering account"})
+        return res.status(500).json({message : "Error in registering account"})
     }
 }
 
 // Login User
 module.exports.login = async(req, res) => {
-    const { email, password } = req.body;
     try{
+        const { email, password } = req.body;
         let user = await User.findOne({email});
 
         if(!user){
@@ -38,29 +74,45 @@ module.exports.login = async(req, res) => {
                 message : "User not found",
             })
         }
-        console.log(user);
 
-        if(password == user.password){
-            console.log("password correct");
-            const sessionUser = {email : user.email, name : user.name};
-            console.log("password correct 1");
-            req.session.user = sessionUser;
-            console.log("password correct 2");
-            res.status(200).json({
-                message : "Logged in Sucessfully",
-                sessionUser
-            })
-        }else{
-            res.status(400).json({
-                message : "Password Incorrect",
-            })
-        }
+        bcrypt.compare(password, user.password)
+        .then(isMatch => {
+            if(!isMatch){
+                return res.status(400).json({
+                    message : "Password Incorrect",
+                });
+            }
+
+            try{
+                const token = jwt.sign({
+                    id : user.id,
+                    name : user.name,
+                    email : user.email,
+                },process.env.ACCESS_TOKEN_SECRET,
+                {expiresIn : 3600})
+                
+                return res.status(200).json({
+                    message : "Logged in Successfully",
+                    token : token,
+                    user : {
+                        id : user.id,
+                        name : user.name,
+                        email : user.email
+                    }
+                })
+            }catch(err){
+                return res.status(400).json({
+                    message : "Unable to login"
+                })
+            }
+        })
     }catch(err){
-        res.status(500).json({
+        return res.status(500).json({
             message : "Error Logging in",
         })
     }
 }
+
 
 // Logout User
 module.exports.logout = (req,res) => {
@@ -76,5 +128,6 @@ module.exports.logout = (req,res) => {
 
 // Check Auth
 module.exports.checkAuth = (req, res) => {
-    res.json({message : "Session not found"});
+    console.log(req);
+    return res.json({message : "Session not found"});
 }
