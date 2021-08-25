@@ -74,7 +74,6 @@ module.exports.login = async(req, res) => {
                 message : "User not found",
             })
         }
-
         bcrypt.compare(password, user.password)
         .then(isMatch => {
             if(!isMatch){
