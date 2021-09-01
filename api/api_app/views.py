@@ -8,6 +8,6 @@ class PictureViewSet(viewsets.ModelViewSet):
     serializer_class = PictureSerializer
 
     def post(self, request, *args, **kwargs):
-        cover = request.data['cover']
-        Picture.objects.create(img=cover)
+        image = request.data['img']
+        Picture.objects.create(img=image)
         return HttpResponse({'message': 'Image Uploaded'}, status=200)
