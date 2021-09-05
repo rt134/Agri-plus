@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../CustomButtons/Button'
 
+
 function Upload() {
 
   const [ image, setImage ] = useState();
@@ -11,14 +12,14 @@ function Upload() {
     
     fetch('http://127.0.0.1:8000/picture/', {
       method: 'POST',
-      body: uploadData
+      body: uploadData,
+      
     }).then( 
         res => console.log(res)
     )
     .catch(
         error => console.log(error)
     );
-
   }
 
   return (
