@@ -101,9 +101,10 @@ const sidebarStyle = (theme) => ({
     marginRight: "15px",
   },
   img: {
-     width: "280px",
-    top: "-10px",
-    left: "-20px",
+     width: "250px",
+    top: "-20px",
+    
+    left: "-5px",
     position: "absolute",
     verticalAlign: "middle",
     border: "0",
