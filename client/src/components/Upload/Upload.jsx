@@ -10,12 +10,12 @@ function Upload() {
     const uploadData = new FormData();
     uploadData.append('img', image, image.name);
     
-    fetch('http://127.0.0.1:8000/picture/', {
+    fetch('http://127.0.0.1:8000/', {
       method: 'POST',
       body: uploadData,
       
     }).then( 
-        res => console.log(res)
+        res => console.log(res.json())
     )
     .catch(
         error => console.log(error)
