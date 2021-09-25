@@ -41,10 +41,7 @@ const contractSchema = new mongoose.Schema({
         type : Date,
         required : true,
     }
-
-
-
-})
+},{timestamps : true});
 
 const Contract = mongoose.model("contract", contractSchema);
 
