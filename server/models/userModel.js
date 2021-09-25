@@ -17,6 +17,18 @@ const userSchema = new mongoose.Schema({
     },
     address : {
         type : String,
+    },
+    pincode : {
+        type : String,
+    },
+    state : {
+        type : String,
+    },
+    district : {
+        type : String,
+    },
+    country : {
+        type : String,
     }
 },{timestamps : true});
 
