@@ -13,20 +13,14 @@ function Upload() {
   const uploadData = async () => {
     const uploadData = new FormData();
     uploadData.append('img', image, image.name);
-    
-    fetch('http://127.0.0.1:8000/', {
+    const res = await fetch('http://127.0.0.1:8000/', {
       method: 'POST',
       body: uploadData,
-      
-    }).then( 
-      res => console.log(res.json()),
-      setDisease("Brown Spot"),
-      setProc(false),
-      setImage(null)
-    )
-    .catch(
-        error => console.log(error)
-    );
+    })
+    const data = await res.json();
+    setDisease(data.name);
+    setProc(false);
+    setImage(null);
   }
 
   return (
@@ -39,7 +33,7 @@ function Upload() {
 
       <div style={{"display": "flex","justify-content": "center", "align-items": "center"}}>
         {
-          disease ? <h3>{disease}</h3> : 
+          disease ? <h4>Disease name : {disease}</h4> : 
               <div>
                 <input type="file" onChange={(e) => setImage(e.target.files[0])}/>
                 {image ? <Button color='success' onClick={() => uploadData()}>Upload</Button> : <Button color='success' disabled={true} onClick={() => uploadData()}>Upload</Button>}
