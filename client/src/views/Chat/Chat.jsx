@@ -18,8 +18,6 @@ const styles = {
   }
 }
 
-
-
 const Chat = (props) => {
     const {classes} = props
   return (
