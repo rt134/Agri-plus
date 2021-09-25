@@ -8,8 +8,6 @@ import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
 // import CardFooter from "../../components/Card/CardFooter.js";
 
-import Upload from "../../components/Upload/Upload.jsx";
-
 
 // const styles = {
 
@@ -17,7 +15,7 @@ import Upload from "../../components/Upload/Upload.jsx";
 
 
 
-export default function DiseaseDetection(props) {
+export default function ContractFarming(props) {
     // const {classes} = props
   return (
     <div>
@@ -25,10 +23,10 @@ export default function DiseaseDetection(props) {
         <GridItem xs={12} sm={10} md={10}>
             <Card>
                 <CardHeader color="success">
-                    Disease Detection
+                    Contract Farming
                 </CardHeader>
-                <CardBody >
-                    <Upload />
+                <CardBody>
+                    Hello there
                 </CardBody>
             </Card>
         </GridItem>

@@ -27,7 +27,7 @@ export default function DiseaseDetection(props) {
                 <CardHeader color="success">
                     Disease Detection
                 </CardHeader>
-                <CardBody >
+                <CardBody>
                     <Upload />
                 </CardBody>
             </Card>
