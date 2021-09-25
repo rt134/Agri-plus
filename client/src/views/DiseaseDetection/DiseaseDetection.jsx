@@ -8,6 +8,8 @@ import CardHeader from "../../components/Card/CardHeader.js";
 import CardBody from "../../components/Card/CardBody.js";
 // import CardFooter from "../../components/Card/CardFooter.js";
 
+import Upload from "../../components/Upload/Upload.jsx";
+
 
 // const styles = {
 
@@ -26,7 +28,7 @@ export default function DiseaseDetection(props) {
                     Disease Detection
                 </CardHeader>
                 <CardBody>
-                    Hello there
+                    <Upload />
                 </CardBody>
             </Card>
         </GridItem>

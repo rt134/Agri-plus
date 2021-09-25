@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,6 +13,7 @@ import Divider from "@material-ui/core/Divider";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
+import axios from "axios";
 // import Dashboard from "@material-ui/icons/Dashboard";
 // import Search from "@material-ui/icons/Search";
 // core components
@@ -20,11 +21,14 @@ import Notifications from "@material-ui/icons/Notifications";
 import Button from "../../components/CustomButtons/Button.js";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
-
+import { useHistory } from "react-router-dom";
+import AuthConext from "../../context/AuthContext";
 const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
+  const loggedIn = useContext(AuthConext);
   const classes = useStyles();
+  let history = useHistory();
   const [openNotification, setOpenNotification] = React.useState(null);
   const [openProfile, setOpenProfile] = React.useState(null);
   const handleClickNotification = (event) => {
@@ -45,10 +49,16 @@ export default function AdminNavbarLinks() {
     }
   };
   const handleCloseProfile = () => {
-    setOpenProfile(null);
+    axios.get("http://localhost:5000/auth/logout").then((res) => {
+      // console.log(res);
+      history.push("/client/login");
+    });
   };
+
   return (
-    <div>
+    <div style={{ display: "flex", flexDirection: "row" }}>
+      <MenuItem style={{fontWeight: "bold", color: "black"}}>{loggedIn.loggedIn && loggedIn.loggedIn.username}</MenuItem>
+
       <div className={classes.manager}>
         <Button
           color={window.innerWidth > 959 ? "transparent" : "white"}
@@ -58,8 +68,10 @@ export default function AdminNavbarLinks() {
           aria-haspopup="true"
           onClick={handleClickNotification}
           className={classes.buttonLink}
-          style={{color : "black"}}
+          style={{ color: "black" }}
         >
+          {/* <h4>{loggedIn.loggedIn && loggedIn.loggedIn.username}</h4> */}
+
           <Notifications className={classes.icons} />
           {/* <span className={classes.notifications}>5</span> */}
           <Hidden mdUp implementation="css">
@@ -137,7 +149,7 @@ export default function AdminNavbarLinks() {
           aria-haspopup="true"
           onClick={handleClickProfile}
           className={classes.buttonLink}
-          style={{color : "black"}}
+          style={{ color: "black" }}
         >
           <Person className={classes.icons} />
           <Hidden mdUp implementation="css">
