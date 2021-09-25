@@ -19,5 +19,6 @@ function AuthContextProvider(props) {
     </AuthContext.Provider>
   );
 }
+
 export default AuthContext;
 export { AuthContextProvider };
