@@ -10,17 +10,24 @@ const productSchema = new mongoose.Schema({
         required : true,
     },
     category : {
-        type : String.apply,
-        required : true,
+        type : String,
+        enum : ["PEST","WEED","VEGI","GRAIN"],
     },
     price : {
         type : Number,
         required : true,
     },
+    quantity : {
+        type : Number,
+        required : true,
+    },
+    image : {
+        type : String,
+    }
 
 
 })
 
-const User = mongoose.model("product", productSchema);
+const Product = mongoose.model("product", productSchema);
 
-module.exports = User;
+module.exports = Product;
