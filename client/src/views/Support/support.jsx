@@ -41,34 +41,34 @@ class Support extends React.Component {
                 <br />
                 <Grid container spacing={2} style={{ textAlign: 'center', padding: '0 10px', margin: '30px 0px' }}>
                   <Grid item xs style={{ margin: 10 }}>
-                    <Link to={{ pathname: `/admin/emailSupport` }}>
+                    <a href="mailto:rishabh.tripathi134@gmail.com">
                       <Paper className={classes.paper} style={{ paddingTop: 20, paddingBottom: 20 }}>
                         <MailOutlineIcon style={{ fontSize: 70, color: '#E53371' }} />
-                        <p style={{ marginBottom: 0 }}>Email Support</p>
-                        <p><small>Take a Email Support</small></p>
+                        <p style={{ marginBottom: 0 }}>Email</p>
+                        <p>Write us anytime for you queries</p>
                         <Button startIcon={<Email />} variant="contained" color="primary" style={{ marginBottom: 20 }}>Email Support</Button>
                       </Paper>
-                    </Link>
+                    </a>
                   </Grid>
 
                   <Grid item xs style={{ margin: 10 }}>
-                    <Link to={{ pathname: `/admin/emailSupport` }}>
+                    <a href="mailto:rishabh.tripathi134@gmail.com">
                       <Paper className={classes.paper} style={{ paddingTop: 20, paddingBottom: 20 }}>
                         <ChatIcon style={{ fontSize: 70, color: '#E53371' }} />
                         <p style={{ marginBottom: 0 }}>Chat Support</p>
-                        <p><small>Take a Chat Support</small></p>
+                        <p>Talk to our chatbot to resolve your trivial queries</p>
                         <Button startIcon={<ChatIcon />} color="primary" style={{ marginBottom: 20 }} >Chat Support</Button>
                       </Paper>
-                    </Link>
+                    </a>
                   </Grid>
 
                   <Grid item xs style={{ margin: 10 }}>
-                    <a href="tel:+919721000028">
+                    <a href="tel:9721000028">
                       <Paper className={classes.paper} style={{ paddingTop: 20, paddingBottom: 20 }}>
                         <PhoneIcon style={{ fontSize: 70, color: '#E53371' }} />
-                        <p style={{ marginBottom: 0 }}>Phone Call Support</p>
-                        <p><small>Take a Phone Call Support</small></p>
-                        <Button onClick={() => this.setState({ canRender: !this.state.canRender })} color="primary" style={{ marginBottom: 20 }} >Phone Support</Button>
+                        <p style={{ marginBottom: 0 }}>Call Us</p>
+                        <p>Call our customer executives</p>
+                        <Button color="primary" style={{ marginBottom: 20 }} >Phone Support</Button>
                       </Paper>
                     </a>
                   </Grid>
