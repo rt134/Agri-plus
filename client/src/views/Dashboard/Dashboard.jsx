@@ -429,25 +429,29 @@ export default function Dashboard() {
                       "1",
                       five[0].dt_txt.substring(0, 10),
                       (five[0].main.temp / 10).toFixed(1) + "°C",
-                      five[0].weather[0].description,
+                      five[0].weather[0].description[0].toUpperCase() +
+                        five[0].weather[0].description.substring(1),
                     ],
                     [
                       "2",
                       five[6].dt_txt.substring(0, 10),
                       (five[6].main.temp / 10).toFixed(1) + "°C",
-                      five[6].weather[0].description,
+                      five[6].weather[0].description[0].toUpperCase() +
+                        five[6].weather[0].description.substring(1),
                     ],
                     [
                       "3",
                       five[11].dt_txt.substring(0, 10),
                       (five[11].main.temp / 10).toFixed(1) + "°C",
-                      five[11].weather[0].description,
+                      five[11].weather[0].description[0].toUpperCase() +
+                        five[11].weather[0].description.substring(1),
                     ],
                     [
                       "4",
                       five[21].dt_txt.substring(0, 10),
                       (five[21].main.temp / 10).toFixed(1) + "°C",
-                      five[21].weather[0].description,
+                      five[21].weather[0].description[0].toUpperCase() +
+                        five[21].weather[0].description.substring(1),
                     ],
                   ]}
                 />
