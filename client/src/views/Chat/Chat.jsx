@@ -1,6 +1,7 @@
 import React from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 import withStyles from "@material-ui/core/styles/withStyles";
+import Grid from '@material-ui/core/Grid';
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card.js";
@@ -20,21 +21,33 @@ const styles = {
 
 const Chat = (props) => {
     const {classes} = props
-  return (
-    <div>
-      <GridContainer>
-        <GridItem xs={12} sm={10} md={10}>
-            <Card>
-                <CardHeader color="success">
-                    Chat
-                </CardHeader>
-                <CardBody className={classes.chat}>
-                    Hello there
-                </CardBody>
-            </Card>
-        </GridItem>
-      </GridContainer>
+    return (
+      <div>
+        <GridContainer>
+          <GridItem xs={12} sm={4} md={4}>
+              <Card>
+                  <CardHeader color="success">
+                      Contacts
+                  </CardHeader>
+                  <CardBody>
+                      Hello there
+                  </CardBody>
+              </Card>
+          </GridItem>
+
+          <GridItem xs={12} sm={8} md={8}>
+              <Card>
+                  <CardHeader color="success">
+                      Chat
+                  </CardHeader>
+                  <CardBody>
+                      Hello there
+                  </CardBody>
+              </Card>
+          </GridItem>
+        </GridContainer>
     </div>
+    
   );
 }
 
