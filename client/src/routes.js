@@ -5,6 +5,10 @@ import DashboardPage from "./views/Dashboard/Dashboard";
 import ProfilePage from "./views/Profile/Profile"
 import DiseaseDetectionPage from "./views/DiseaseDetection/DiseaseDetection"
 import ContractFarmingPage from "./views/ContractFarming/ContractFarming"
+import Foodgrains from './views/Products/FoodGrains/Foodgrains';
+import Vegetables from './views/Products/Vegetables/Vegetables';
+import Pesticides from './views/Products/Pesticides/Pesticides';
+import Support from './views/Support/support';
 
 
 // Icons
@@ -45,21 +49,21 @@ const dashboardRoutes = [
     path: "/freshvegetables",
     name: "Fresh vegetables",
     icon: EcoIcon,
-    component: DashboardPage,
+    component: Vegetables,
     layout: "/client",
   },
   {
     path: "/farmgoods",
     name: "Farm Goods",
     icon: GrainIcon,
-    component: DashboardPage,
+    component: Foodgrains,
     layout: "/client",
   },
   {
     path: "/pesticides",
     name: "Pesticides",
     icon: EmojiNatureIcon,
-    component: DashboardPage,
+    component: Pesticides,
     layout: "/client",
   },
   {
@@ -80,7 +84,7 @@ const dashboardRoutes = [
     path: "/support",
     name: "Support",
     icon: PermPhoneMsgIcon,
-    component: DashboardPage,
+    component: Support,
     layout: "/client",
   },
   

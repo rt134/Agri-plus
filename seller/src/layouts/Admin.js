@@ -26,7 +26,7 @@ const switchRoutes = (
 
 
     {routes.map((prop, key) => {
-      if (prop.layout === "/client") {
+      if (prop.layout === "/seller") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -37,7 +37,7 @@ const switchRoutes = (
       }
       return null;
     })}
-    <Redirect from="/client" to="/client/dashboard" />
+    <Redirect from="/seller" to="/seller/dashboard" />
   </Switch>
 );
 
