@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 // react plugin for creating charts
 // import ChartistGraph from "react-chartist";
 // @material-ui/core
@@ -6,7 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 // import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
 import Store from "@material-ui/icons/Store";
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 // import Warning from "@material-ui/icons/Warning";
 // import DateRange from "@material-ui/icons/DateRange";
 // import LocalOffer from "@material-ui/icons/LocalOffer";
@@ -44,19 +44,229 @@ const useStyles = makeStyles(styles);
 
 export default function Dashboard() {
   const classes = useStyles();
+
+  const [query, setQuery] = useState("Delhi");
+  const [weather, setWeather] = useState({});
+  const [forecast, setForecast] = useState({});
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+  const [temp, setTemp] = useState("");
+  const [maxTemp, setMaxTemp] = useState("");
+  const [minTemp, setMinTemp] = useState("");
+  const [humidity, setHumidity] = useState("");
+  const [description, setDescription] = useState("");
+  const [place, setPlace] = useState("Delhi");
+  const [five, setFive] = useState([]);
+
+  const search = (evt) => {
+    if (evt.key === "Enter") {
+      async function fetchMyApi() {
+        await fetch(
+          `http://api.openweathermap.org/data/2.5/weather?&units=metric&q=${query}&units=metric&APPID=c19c5316b1cb31da538b4a42aa7a6e6a`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            setWeather(result);
+            console.log(weather);
+            setQuery("");
+            setTemp(Math.round(result.main.temp));
+            setMaxTemp(result.main.temp_max);
+            setMinTemp(result.main.temp_min);
+            setHumidity(result.main.humidity);
+            setPlace(query);
+            setPlace(query[0].toUpperCase() + query.substring(1));
+            setDescription(
+              result.weather[0].description[0].toUpperCase() +
+                result.weather[0].description.substring(1)
+            );
+          })
+          .catch((e) => console.error(e));
+
+        fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${query},us&appid=c19c5316b1cb31da538b4a42aa7a6e6a`
+        )
+          .then((res) => res.json())
+          .then((result) => {
+            setFive(result.list);
+            console.log(five);
+          })
+          .catch((e) => console.error(e));
+      }
+      fetchMyApi();
+    }
+  };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const dt = new Date();
+      const time = dt.toLocaleTimeString();
+      setTime(time);
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [time]);
+  useEffect(() => {
+    async function fetchMyApi() {
+      await fetch(
+        `http://api.openweathermap.org/data/2.5/weather?&units=metric&q=${query}&units=metric&APPID=c19c5316b1cb31da538b4a42aa7a6e6a`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setWeather(result);
+          console.log(weather);
+
+          setQuery("");
+          setTemp(Math.round(result.main.temp));
+          setMaxTemp(result.main.temp_max);
+          setMinTemp(result.main.temp_min);
+          setHumidity(result.main.humidity);
+          setPlace(query);
+          setPlace(query[0].toUpperCase() + query.substring(1));
+          setDescription(
+            result.weather[0].description[0].toUpperCase() +
+              result.weather[0].description.substring(1)
+          );
+        })
+        .catch((e) => console.error(e));
+      fetch(
+        `https://api.openweathermap.org/data/2.5/forecast?q=${query},us&appid=c19c5316b1cb31da538b4a42aa7a6e6a`
+      )
+        .then((res) => res.json())
+        .then((result) => {
+          setFive(result.list);
+          console.log(five);
+        })
+        .catch((e) => console.error(e));
+    }
+    fetchMyApi();
+  }, [place]);
+  const dateBuilder = (d) => {
+    let months = [
+      "January",
+      "Feburary",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    let days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    let day = days[d.getDay()];
+    let date = d.getDate();
+    let month = months[d.getMonth()];
+    let year = d.getFullYear();
+    console.log(new Date());
+
+    return `${day} ${date} ${month} ${year}`;
+  };
+
   return (
     <div>
+      <div className="search-box">
+        <input
+          type="text"
+          className="search-bar"
+          placeholder="Enter city name to get forecast..."
+          onChange={(event) => setQuery(event.target.value)}
+          value={query}
+          onKeyPress={search}
+        />
+      </div>
       <GridContainer>
         <GridItem xs={12} sm={6} md={3}>
           <Card>
+            <CardHeader color="success" stats icon>
+              <CardIcon color="success">
+                <AttachMoneyIcon />
+              </CardIcon>
+              <p className={classes.cardCategory}>Place</p>
+              <h3 className={classes.cardTitle}>{place}</h3>
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                {/* <DateRange /> */}
+                {/* Last 24 Hours */}
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader color="info" stats icon>
+              <CardIcon color="info">
+                <Accessibility />
+              </CardIcon>
+              <p className={classes.cardCategory}>Temperature</p>
+              <h3 className={classes.cardTitle}>{temp}°C</h3>
+            </CardHeader>
+            <CardFooter stats>
+              {/* <div className={classes.stats}>
+                <Update />
+                Just Updated
+              </div> */}
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
             <CardHeader color="warning" stats icon>
-            <CardIcon color="warning">
+              <CardIcon color="warning">
                 <Store />
               </CardIcon>
-              <p className={classes.cardCategory}>Contracts</p>
-              <h3 className={classes.cardTitle}>
-                4
-              </h3>
+              <p className={classes.cardCategory}>Maximum Temperature</p>
+              <h3 className={classes.cardTitle}>{maxTemp}°C </h3>
+            </CardHeader>
+            <CardFooter stats>
+              {/* <div className={classes.stats}>
+                <Danger>
+                  <Warning />
+                </Danger>
+                <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                  Get more space
+                </a>
+              </div> */}
+            </CardFooter>
+          </Card>
+        </GridItem>
+
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader color="success" stats icon>
+              <CardIcon color="success">
+                <AttachMoneyIcon />
+              </CardIcon>
+              <p className={classes.cardCategory}>Humidity</p>
+              <h3 className={classes.cardTitle}>{humidity}%</h3>
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                {/* <DateRange /> */}
+                {/* Last 24 Hours */}
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        <GridItem xs={12} sm={6} md={3}>
+          <Card>
+            <CardHeader color="warning" stats icon>
+              <CardIcon color="warning">
+                <Store />
+              </CardIcon>
+              <p className={classes.cardCategory}>Date and time</p>
+              <h4 className={classes.cardTitle}>{dateBuilder(new Date())} </h4>
+              <h4 className={classes.cardTitle}>{time} </h4>
             </CardHeader>
             <CardFooter stats>
               {/* <div className={classes.stats}>
@@ -76,48 +286,14 @@ export default function Dashboard() {
               <CardIcon color="success">
                 <AttachMoneyIcon />
               </CardIcon>
-              <p className={classes.cardCategory}>Cart</p>
-              <h3 className={classes.cardTitle}>24</h3>
+              <p className={classes.cardCategory}>Description</p>
+              <h3 className={classes.cardTitle}>{description}</h3>
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 {/* <DateRange /> */}
                 {/* Last 24 Hours */}
               </div>
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="danger" stats icon>
-              <CardIcon color="danger">
-                <AttachMoneyIcon />
-              </CardIcon>
-              <p className={classes.cardCategory}>Fixed Issues</p>
-              <h3 className={classes.cardTitle}>75</h3>
-            </CardHeader>
-            <CardFooter stats>
-              {/* <div className={classes.stats}>
-                <LocalOffer />
-                Tracked from Github
-              </div> */}
-            </CardFooter>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={6} md={3}>
-          <Card>
-            <CardHeader color="info" stats icon>
-              <CardIcon color="info">
-                <Accessibility />
-              </CardIcon>
-              <p className={classes.cardCategory}>Rent Products</p>
-              <h3 className={classes.cardTitle}>45</h3>
-            </CardHeader>
-            <CardFooter stats>
-              {/* <div className={classes.stats}>
-                <Update />
-                Just Updated
-              </div> */}
             </CardFooter>
           </Card>
         </GridItem>
@@ -238,47 +414,48 @@ export default function Dashboard() {
             ]}
           />
         </GridItem> */}
-        <GridItem xs={12} sm={12} md={6}>
+        <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="success">
-              <h4 className={classes.cardTitleWhite}>Pending orders</h4>
-              <p className={classes.cardCategoryWhite}>
-                Orders yet to fulfil
-              </p>
+              <h4 className={classes.cardTitleWhite}>Forecast</h4>
             </CardHeader>
             <CardBody>
-              <Table
-                tableHeaderColor="warning"
-                tableHead={["S.No", "Name", "price"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738"],
-                  ["2", "Minerva Hooper", "$23,789"],
-                  ["3", "Sage Rodriguez", "$56,142"],
-                  ["4", "Philip Chaney", "$38,735"],
-                ]}
-              />
-            </CardBody>
-          </Card>
-        </GridItem>
-        <GridItem xs={12} sm={12} md={6}>
-          <Card>
-            <CardHeader color="rose">
-              <h4 className={classes.cardTitleWhite}>Order History</h4>
-              <p className={classes.cardCategoryWhite}>
-                Completed Orders
-              </p>
-            </CardHeader>
-            <CardBody>
-              <Table
-                tableHeaderColor="warning"
-                tableHead={["S.No", "Name", "price"]}
-                tableData={[
-                  ["1", "Dakota Rice", "$36,738"],
-                  ["2", "Minerva Hooper", "$23,789"],
-                  ["3", "Sage Rodriguez", "$56,142"],
-                  ["4", "Philip Chaney", "$38,735"],
-                ]}
-              />
+              {five && five.length > 0 && (
+                <Table
+                  tableHeaderColor="warning"
+                  tableHead={["S.No", "Date", "Temperature", "Description"]}
+                  tableData={[
+                    [
+                      "1",
+                      five[0].dt_txt.substring(0, 10),
+                      (five[0].main.temp / 10).toFixed(1) + "°C",
+                      five[0].weather[0].description[0].toUpperCase() +
+                        five[0].weather[0].description.substring(1),
+                    ],
+                    [
+                      "2",
+                      five[6].dt_txt.substring(0, 10),
+                      (five[6].main.temp / 10).toFixed(1) + "°C",
+                      five[6].weather[0].description[0].toUpperCase() +
+                        five[6].weather[0].description.substring(1),
+                    ],
+                    [
+                      "3",
+                      five[11].dt_txt.substring(0, 10),
+                      (five[11].main.temp / 10).toFixed(1) + "°C",
+                      five[11].weather[0].description[0].toUpperCase() +
+                        five[11].weather[0].description.substring(1),
+                    ],
+                    [
+                      "4",
+                      five[21].dt_txt.substring(0, 10),
+                      (five[21].main.temp / 10).toFixed(1) + "°C",
+                      five[21].weather[0].description[0].toUpperCase() +
+                        five[21].weather[0].description.substring(1),
+                    ],
+                  ]}
+                />
+              )}
             </CardBody>
           </Card>
         </GridItem>
