@@ -30,7 +30,7 @@ const Chat = (props) => {
                       Contacts
                   </CardHeader>
                   <CardBody>
-                      Hello there
+                  Loading...
                   </CardBody>
               </Card>
           </GridItem>
@@ -41,7 +41,7 @@ const Chat = (props) => {
                       Chat
                   </CardHeader>
                   <CardBody>
-                      Hello there
+                      Loading...
                   </CardBody>
               </Card>
           </GridItem>
