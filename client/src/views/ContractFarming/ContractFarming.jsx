@@ -26,7 +26,7 @@ export default function ContractFarming(props) {
                     Contract Farming
                 </CardHeader>
                 <CardBody>
-                    Hello there
+                Loading...
                 </CardBody>
             </Card>
         </GridItem>

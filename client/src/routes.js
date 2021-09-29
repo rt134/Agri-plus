@@ -8,6 +8,7 @@ import ContractFarmingPage from "./views/ContractFarming/ContractFarming"
 import Foodgrains from './views/Products/FoodGrains/Foodgrains';
 import Vegetables from './views/Products/Vegetables/Vegetables';
 import Pesticides from './views/Products/Pesticides/Pesticides';
+import Fruits from './views/Products/Fruits/Fruits'
 import Support from './views/Support/support';
 
 
@@ -21,7 +22,7 @@ import MessageIcon from '@material-ui/icons/Message';
 import PermPhoneMsgIcon from '@material-ui/icons/PermPhoneMsg';
 import SearchIcon from '@material-ui/icons/Search';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
-
+import AppleIcon from '@material-ui/icons/Apple';
 
 const dashboardRoutes = [
   {
@@ -46,15 +47,23 @@ const dashboardRoutes = [
     layout: "/client",
   },
   {
-    path: "/freshvegetables",
-    name: "Fresh vegetables",
+    path: "/vegetables",
+    name: "vegetables",
     icon: EcoIcon,
     component: Vegetables,
     layout: "/client",
   },
+
   {
-    path: "/farmgoods",
-    name: "Farm Goods",
+    path: "/fruits",
+    name: "Fruits",
+    icon: AppleIcon,
+    component: Fruits,
+    layout: "/client",
+  },
+  {
+    path: "/grains",
+    name: "Food Grains",
     icon: GrainIcon,
     component: Foodgrains,
     layout: "/client",

@@ -1,37 +1,90 @@
-import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
+import React from 'react'
+import PropTypes from 'prop-types'
+// react plugin for creating charts
+// @material-ui/core
+import withStyles from '@material-ui/core/styles/withStyles'
+// @material-ui/icons
+// core components
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
-import Card from "../../components/Card/Card.js";
-import CardHeader from "../../components/Card/CardHeader.js";
-// import CardIcon from "../../components/Card/CardIcon.js";
-import CardBody from "../../components/Card/CardBody.js";
-// import CardFooter from "../../components/Card/CardFooter.js";
 
 
-// const styles = {
+import Card from '../../components/Card/Card.js'
+import CardHeader from '../../components/Card/CardHeader.js'
+import CardBody from '../../components/Card/CardBody.js'
 
-// }
+// import PhoneEnabledIcon from '@material-ui/icons/PhoneEnabled';
+import ChatIcon from '@material-ui/icons/Chat';
+import Email from '@material-ui/icons/Email';
+import Button from '../../components/CustomButtons/Button'
+import { Link } from 'react-router-dom'
+import Paper from '@material-ui/core/Paper';
 
+import dashboardStyle from '../../assets/jss/material-dashboard-react/views/dashboardStyle.js'
 
+import Grid from '@material-ui/core/Grid';
+import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import PhoneIcon from '@material-ui/icons/Phone';
 
-const Support =  props =>{
-    // const {classes} = props
-  return (
-    <div>
-      <GridContainer>
-        <GridItem xs={12} sm={10} md={10}>
+class Support extends React.Component {
+  render() {
+    const { classes } = this.props
+    return (
+      <div >
+        <GridContainer>
+          <GridItem xs={10} sm={10} md={10}>
             <Card>
-                <CardHeader color="success">
-                    Support
-                </CardHeader>
-                <CardBody>
-                    Hello there
-                </CardBody>
+              <CardHeader color='success'>
+                <h4 className={classes.cardTitleWhite}>Support</h4>
+              </CardHeader>
+              <CardBody Style={{ textAlign: "center" }}>
+                <br />
+                <Grid container spacing={2} style={{ textAlign: 'center', padding: '0 10px', margin: '30px 0px' }}>
+                  <Grid item xs style={{ margin: 10 }}>
+                    <Link to={{ pathname: `/admin/emailSupport` }}>
+                      <Paper className={classes.paper} style={{ paddingTop: 20, paddingBottom: 20 }}>
+                        <MailOutlineIcon style={{ fontSize: 70, color: '#E53371' }} />
+                        <p style={{ marginBottom: 0 }}>Email Support</p>
+                        <p><small>Take a Email Support</small></p>
+                        <Button startIcon={<Email />} variant="contained" color="primary" style={{ marginBottom: 20 }}>Email Support</Button>
+                      </Paper>
+                    </Link>
+                  </Grid>
+
+                  <Grid item xs style={{ margin: 10 }}>
+                    <Link to={{ pathname: `/admin/emailSupport` }}>
+                      <Paper className={classes.paper} style={{ paddingTop: 20, paddingBottom: 20 }}>
+                        <ChatIcon style={{ fontSize: 70, color: '#E53371' }} />
+                        <p style={{ marginBottom: 0 }}>Chat Support</p>
+                        <p><small>Take a Chat Support</small></p>
+                        <Button startIcon={<ChatIcon />} color="primary" style={{ marginBottom: 20 }} >Chat Support</Button>
+                      </Paper>
+                    </Link>
+                  </Grid>
+
+                  <Grid item xs style={{ margin: 10 }}>
+                    <a href="tel:+919721000028">
+                      <Paper className={classes.paper} style={{ paddingTop: 20, paddingBottom: 20 }}>
+                        <PhoneIcon style={{ fontSize: 70, color: '#E53371' }} />
+                        <p style={{ marginBottom: 0 }}>Phone Call Support</p>
+                        <p><small>Take a Phone Call Support</small></p>
+                        <Button onClick={() => this.setState({ canRender: !this.state.canRender })} color="primary" style={{ marginBottom: 20 }} >Phone Support</Button>
+                      </Paper>
+                    </a>
+                  </Grid>
+
+                </Grid>
+              </CardBody>
             </Card>
-        </GridItem>
-      </GridContainer>
-    </div>
-  );
+          </GridItem>
+        </GridContainer>
+      </div>
+    )
+  }
 }
-export default Support;
+
+Support.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+export default withStyles(dashboardStyle)(Support)

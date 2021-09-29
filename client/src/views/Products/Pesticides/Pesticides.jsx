@@ -20,7 +20,7 @@ const Pesticides = props => {
                     Pesticides
                 </CardHeader>
                 <CardBody>
-                    Hello there
+                Loading...
                 </CardBody>
             </Card>
         </GridItem>
