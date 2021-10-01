@@ -11,12 +11,6 @@ import CardBody from "../../components/Card/CardBody.js";
 import Upload from "../../components/Upload/Upload.jsx";
 
 
-// const styles = {
-
-// }
-
-
-
 export default function DiseaseDetection(props) {
     // const {classes} = props
   return (

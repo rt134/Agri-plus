@@ -163,7 +163,6 @@ function Login (props) {
           { withCredentials: true }
         )
         .then((res) => {
-          // console.log(res);
           history.push("/client/dashboard");
         });
     } catch (err) {
@@ -182,7 +181,7 @@ function Login (props) {
         <GridItem xs={10} sm={6} md={4}>
           <Card>
             <CardHeader color="success">
-              <h5 className={classes.cardTitleWhite}>SignUp</h5>
+              <h5 className={classes.cardTitleWhite}>Login</h5>
             </CardHeader>
             <CardBody>
               <form onSubmit={handleSubmit}>
@@ -218,11 +217,11 @@ function Login (props) {
                     style={{ float: "left" }}
                     type="submit"
                   >
-                    Signup
+                    Login
                   </Button>
                   <br />
-                  <Link to={{ pathname: `/client/login` }}>
-                    <Button>Login Page</Button>
+                  <Link to={{ pathname: `/client/signup` }}>
+                    <Button>Signup Page</Button>
                   </Link>
                 </div>
               </form>
