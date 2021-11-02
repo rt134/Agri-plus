@@ -13,6 +13,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CardBody from "../../components/Card/CardBody.js";
 import AuthConext from "../../context/AuthContext";
 import CardFooter from "../../components/Card/CardFooter.js";
+import axios from 'axios'
 
 const styles = {
   cardCategoryWhite: {
@@ -43,14 +44,37 @@ const styles = {
 
 const Profile = props => {
   const loggedIn = useContext(AuthConext);
+  // console.log(loggedIn);
   const [isEditable, setEditable] = useState(true);
+  const [name, setName] = useState("Rishabh");
+  const [email, setEmail] = useState("email");
+  const [contact, setContact] = useState("");
+  const [address, setAddress] = useState("");
+  const [district, setDistrict] = useState("");
+  const [state, setState] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [country, setCountry] = useState("");
   const { classes } = props;
+
+  const update = (event) => {
+    event.preventDefault();
+
+    axios.post('http://localhost:5000/auth/update',{
+      contact,
+      address,
+      district,
+      state,
+      pincode,
+      country,
+    },
+    { withCredentials: true })
+  }
 
   return (
     <div>
       <GridContainer>
         <GridItem xs={12} sm={10} md={10}>
-          <form>
+          <form onSubmit={update}>
             <Card>
               <CardHeader color="success">
                 <div style={{ display: "flex" }}>
@@ -74,7 +98,7 @@ const Profile = props => {
                             disabled: true,
                           }}
                           inputProps={{
-                            value: "RISHABH TRIPATHI",
+                            value: name,
                             required: true,
                             name: "name",
                             // onChange: this.handleChange
@@ -92,7 +116,7 @@ const Profile = props => {
                             disabled: true,
                           }}
                           inputProps={{
-                            value: "rt134@gmail.com",
+                            value: email,
                             required: true,
                             name: "emailId",
                             // onChange: this.handleChange
@@ -112,7 +136,7 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "9721000028",
+                            value: contact,
                             required: true,
                             name: "contact",
                             // onChange: this.handleChange
@@ -130,7 +154,7 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "House no 1, Vashishtapuram",
+                            value: address,
                             required: true,
                             name: "address",
                             // onChange: this.handleChange
@@ -150,7 +174,7 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "Basti",
+                            value: district,
                             required: true,
                             name: "district",
                             // onChange: this.handleChange
@@ -168,7 +192,7 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "Uttar pradesh",
+                            value: state,
                             required: true,
                             name: "state",
                             // onChange: this.handleChange
@@ -187,7 +211,7 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "272301",
+                            value: pincode,
                             required: true,
                             name: "pincode",
                             // onChange: this.handleChange
@@ -205,7 +229,7 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "India",
+                            value: country,
                             required: true,
                             name: "country",
                             // onChange: this.handleChange
