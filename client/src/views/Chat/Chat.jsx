@@ -1,7 +1,7 @@
 import React from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 import withStyles from "@material-ui/core/styles/withStyles";
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card.js";
@@ -20,7 +20,7 @@ const styles = {
 }
 
 const Chat = (props) => {
-    const {classes} = props
+    // const {classes} = props
     return (
       <div>
         <GridContainer>

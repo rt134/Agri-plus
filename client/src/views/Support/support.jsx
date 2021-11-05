@@ -17,7 +17,7 @@ import CardBody from '../../components/Card/CardBody.js'
 import ChatIcon from '@material-ui/icons/Chat';
 import Email from '@material-ui/icons/Email';
 import Button from '../../components/CustomButtons/Button'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import Paper from '@material-ui/core/Paper';
 
 import dashboardStyle from '../../assets/jss/material-dashboard-react/views/dashboardStyle.js'

@@ -22,133 +22,20 @@ const styles = {
   },
 };
 
-// class Login extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       email: "",
-//       password: "",
-//     };
-//   }
-
-//   handleChange = (event) => {
-//     this.setState({
-//       [event.target.name]: event.target.value,
-//     });
-//   };
-//   componentDidMount = () => {
-//     axios
-//       .get("http://localhost:8000/api/user/checkauth", {
-//         withCredentials: true,
-//       })
-//       .then((res) => {
-//         console.log(res);
-//       });
-//   };
-
-//   handleSubmit = async (event) => {
-//     event.preventDefault();
-
-//     console.log(this.state);
-//     try {
-//       axios
-//         .post("http://localhost:8000/api/user/login", {
-//           email: this.state.email,
-//           password: this.state.password,
-//         })
-//         .then((res) => {
-//           console.log(res);
-//         });
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   };
-
-//   render() {
-//     const { classes } = this.props;
-//     return (
-//       <div>
-//         <GridContainer
-//           container
-//           alignItems="center"
-//           justifyContent="center"
-//           style={{ minHeight: "70vh" }}
-//         >
-//           <GridItem xs={10} sm={6} md={4}>
-//             <Card>
-//               <CardHeader color="success">
-//                 <h5 className={classes.cardTitleWhite}>LogIn</h5>
-//               </CardHeader>
-//               <CardBody>
-//                 <form onSubmit={this.handleSubmit}>
-//                   <CustomInput
-//                     labelText="Email"
-//                     formControlProps={{
-//                       fullWidth: true,
-//                     }}
-//                     inputProps={{
-//                       value: this.state.email,
-//                       required: true,
-//                       name: "email",
-//                       onChange: this.handleChange,
-//                     }}
-//                   />
-//                   <CustomInput
-//                     labelText="password"
-//                     formControlProps={{
-//                       fullWidth: true,
-//                     }}
-//                     inputProps={{
-//                       value: this.state.password,
-//                       required: true,
-//                       name: "password",
-//                       onChange: this.handleChange,
-//                       type: "password",
-//                     }}
-//                   />
-//                   <div style={{ alignItems: "center", display: "flex" }}>
-//                     <Button
-//                       color="success"
-//                       style={{ float: "left" }}
-//                       type="submit"
-//                     >
-//                       Login
-//                     </Button>
-//                     <Link to={{ pathname: `/client/signup` }}>
-//                       <Button>Signup Page</Button>
-//                     </Link>
-//                   </div>
-//                 </form>
-//               </CardBody>
-//             </Card>
-//           </GridItem>
-//         </GridContainer>
-//       </div>
-//     );
-//   }
-// }
-
 
 function Login (props) {
   const { classes } = props;
-  const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [passwordVerify, setPasswordVerify] = useState();
   let history = useHistory();
-  const handleChangeName = (event) => {
-    setName(event.target.value);
-  };
+  
   const handleChangeEmail = (event) => {
     setEmail(event.target.value);
   };
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
   };
-  const handleChangePasswordVerify = (event) => {
-    setPasswordVerify(event.target.value);
-  };
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();

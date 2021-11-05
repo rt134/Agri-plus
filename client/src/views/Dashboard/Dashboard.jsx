@@ -6,7 +6,7 @@ import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import PlaceIcon from '@material-ui/icons/Place';
 import CloudIcon from '@material-ui/icons/Cloud';
-import Accessibility from "@material-ui/icons/Accessibility";
+// import Accessibility from "@material-ui/icons/Accessibility";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Table from "../../components/Table/Table.js";
@@ -25,9 +25,9 @@ export default function Dashboard() {
 
   const [query, setQuery] = useState("Delhi");
   const [weather, setWeather] = useState({});
-  const [forecast, setForecast] = useState({});
+  // const [forecast, setForecast] = useState({});
   const [time, setTime] = useState("");
-  const [date, setDate] = useState("");
+  // const [date, setDate] = useState("");
   const [temp, setTemp] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
   const [minTemp, setMinTemp] = useState("");

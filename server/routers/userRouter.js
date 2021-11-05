@@ -110,7 +110,7 @@ router.get("/loggedIn", (req, res) => {
       username: verified.name,
       emailId: verified.email,
     };
-    // console.log(data);
+    
     res.send(data);
   } catch (err) {
     console.error(err)
@@ -121,7 +121,7 @@ router.get("/loggedIn", (req, res) => {
 router.post("/update", auth, async (req, res) => {
   try {
     const { contact, address, district, pincode, country, state } = req.body;
-    const email  = req.user.email;
+    const email  = req.email;
     await User.findOneAndUpdate({email : email},{
       contact,
       address,
@@ -137,6 +137,21 @@ router.post("/update", auth, async (req, res) => {
     console.error(err);
     res.status(500).send({
       message : "Error in updating"
+    });
+  }
+});
+
+router.get("/getuser", auth, async (req, res) => {
+  try {
+    const email  = req.email;
+    const user = await User.findOne({email : email})
+    res.status(200).json({
+      user
+    })
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
+      message : "Error in Fetching detail"
     });
   }
 });
