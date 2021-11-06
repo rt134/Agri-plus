@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect } from "react";
 // import { makeStyles } from "@material-ui/core/styles";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -11,8 +11,9 @@ import Button from "../../components/CustomButtons/Button";
 // import CardIcon from "../../components/Card/CardIcon.js";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CardBody from "../../components/Card/CardBody.js";
-import AuthConext from "../../context/AuthContext";
+// import AuthConext from "../../context/AuthContext";
 import CardFooter from "../../components/Card/CardFooter.js";
+import axios from 'axios'
 
 const styles = {
   cardCategoryWhite: {
@@ -42,15 +43,82 @@ const styles = {
 };
 
 const Profile = props => {
-  const loggedIn = useContext(AuthConext);
   const [isEditable, setEditable] = useState(true);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [address, setAddress] = useState("");
+  const [district, setDistrict] = useState("");
+  const [state, setState] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [country, setCountry] = useState("");
   const { classes } = props;
+
+  useEffect(() => {
+    try{
+      axios.get('http://localhost:5000/auth/getuser',{withCredentials : true})
+      .then(res => {
+        setName(res.data.user.name);
+        setEmail(res.data.user.email);
+        setAddress(res.data.user.address);
+        setContact(res.data.user.contact);
+        setPincode(res.data.user.pincode);
+        setCountry(res.data.user.country);
+        setDistrict(res.data.user.district);
+        setState(res.data.user.state);
+      })
+    }catch(err){
+      console.log(err);
+    }
+
+  }, [])
+
+  const update = (event) => {
+    event.preventDefault();
+
+    axios.post('http://localhost:5000/auth/update',{
+      contact,
+      address,
+      district,
+      state,
+      pincode,
+      country,
+    },
+    { withCredentials: true })
+    .then(() => {
+      setEditable(true);
+    })
+  }
+
+  const handleChangeContact = (event) => {
+    setContact(event.target.value);
+  };
+
+  const handleChangeAddress = (event) => {
+    setAddress(event.target.value);
+  };
+
+  const handleChangeDistrict = (event) => {
+    setDistrict(event.target.value);
+  };
+
+  const handleChangeState = (event) => {
+    setState(event.target.value);
+  };
+
+  const handleChangePincode = (event) => {
+    setPincode(event.target.value);
+  };
+
+  const handleChangeCountry = (event) => {
+    setCountry(event.target.value);
+  };
 
   return (
     <div>
       <GridContainer>
         <GridItem xs={12} sm={10} md={10}>
-          <form>
+          <form onSubmit={update}>
             <Card>
               <CardHeader color="success">
                 <div style={{ display: "flex" }}>
@@ -74,10 +142,9 @@ const Profile = props => {
                             disabled: true,
                           }}
                           inputProps={{
-                            value: "RISHABH TRIPATHI",
+                            value: name,
                             required: true,
                             name: "name",
-                            // onChange: this.handleChange
                           }}
 
                         />
@@ -92,10 +159,9 @@ const Profile = props => {
                             disabled: true,
                           }}
                           inputProps={{
-                            value: "rt134@gmail.com",
+                            value: email,
                             required: true,
                             name: "emailId",
-                            // onChange: this.handleChange
                           }}
                         />
                         </GridItem>
@@ -112,10 +178,10 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "9721000028",
+                            value: contact,
                             required: true,
                             name: "contact",
-                            // onChange: this.handleChange
+                            onChange: handleChangeContact
                           }}
 
                         />
@@ -130,10 +196,10 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "House no 1, Vashishtapuram",
+                            value: address,
                             required: true,
                             name: "address",
-                            // onChange: this.handleChange
+                            onChange: handleChangeAddress
                           }}
                         />
                         </GridItem>
@@ -150,10 +216,10 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "Basti",
+                            value: district,
                             required: true,
                             name: "district",
-                            // onChange: this.handleChange
+                            onChange: handleChangeDistrict
                           }}
 
                         />
@@ -168,10 +234,10 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "Uttar pradesh",
+                            value: state,
                             required: true,
                             name: "state",
-                            // onChange: this.handleChange
+                            onChange: handleChangeState
                           }}
                         />
                         </GridItem>
@@ -187,10 +253,10 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "272301",
+                            value: pincode,
                             required: true,
                             name: "pincode",
-                            // onChange: this.handleChange
+                            onChange: handleChangePincode
                           }}
 
                         />
@@ -205,10 +271,10 @@ const Profile = props => {
                             disabled: isEditable,
                           }}
                           inputProps={{
-                            value: "India",
+                            value: country,
                             required: true,
                             name: "country",
-                            // onChange: this.handleChange
+                            onChange: handleChangeCountry
                           }}
                         />
                         </GridItem>

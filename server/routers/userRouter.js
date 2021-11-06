@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const auth = require("../middleware/auth");
 
 router.post("/", async (req, res) => {
   try {
@@ -37,7 +38,9 @@ router.post("/", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
       })
-      .send();
+      .send({
+        message : "Signed up succesfully"
+      });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -76,7 +79,9 @@ router.post("/login", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
       })
-      .send();
+      .send({
+        message : "Logged in sucessfully"
+      });
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -105,11 +110,51 @@ router.get("/loggedIn", (req, res) => {
       username: verified.name,
       emailId: verified.email,
     };
-    // console.log(data);
+    
     res.send(data);
   } catch (err) {
     console.error(err)
     res.json(false);
   }
 });
+
+router.post("/update", auth, async (req, res) => {
+  try {
+    const { contact, address, district, pincode, country, state } = req.body;
+    const email  = req.email;
+    await User.findOneAndUpdate({email : email},{
+      contact,
+      address,
+      district,
+      pincode,
+      country,
+      state
+    })
+    res.status(200).json({
+      message : "Updates successfully"
+    })
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
+      message : "Error in updating"
+    });
+  }
+});
+
+router.get("/getuser", auth, async (req, res) => {
+  try {
+    const email  = req.email;
+    const user = await User.findOne({email : email})
+    res.status(200).json({
+      user
+    })
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
+      message : "Error in Fetching detail"
+    });
+  }
+});
+
+
 module.exports = router;

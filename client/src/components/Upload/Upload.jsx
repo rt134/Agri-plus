@@ -11,16 +11,20 @@ function Upload() {
   const [disease, setDisease] = useState("");
 
   const uploadData = async () => {
-    const uploadData = new FormData();
-    uploadData.append('img', image, image.name);
-    const res = await fetch('http://127.0.0.1:8000/', {
-      method: 'POST',
-      body: uploadData,
-    })
-    const data = await res.json();
-    setDisease(data.name);
-    setProc(false);
-    setImage(null);
+    try {
+      const uploadData = new FormData();
+      uploadData.append('img', image, image.name);
+      const res = await fetch('http://127.0.0.1:8000/', {
+        method: 'POST',
+        body: uploadData,
+      })
+      const data = await res.json();
+      setDisease(data.name);
+      setProc(false);
+      setImage(null);
+    }catch(err){
+      console.log("Api chala bhai");
+    }
   }
 
   return (
