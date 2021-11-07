@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card.js";
@@ -9,7 +9,7 @@ import { Tooltip } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import Table from '../../components/Table/Table'
+import CustomizedTables from "./CustomizedTable.jsx";
 
 
 const styles = {
@@ -32,6 +32,7 @@ const styles = {
   tr: {
     float: "right",
     cursor: "pointer",
+    color : "white",
     '&:hover': {
       color: "black",
     }
@@ -40,49 +41,37 @@ const styles = {
 };
 
 
+
+
 const ContractFarming = (props) => {
     const {classes} = props
     const data = [];
-    const [userEmail, setUserEmail] = useState("");
-
-
-    useEffect(() => {
-      axios.get("http://localhost:5000/auth/loggedIn",{withCredentials : true})
-      .then(res =>
-        setUserEmail(res.data.emailId)
-      );
-    },[])
-
-    useEffect(() => {
-      axios.get("http://localhost:5000/contract/getall",{withcredentials : true})
-      .then(res =>
-        {
-          for(let i=0;i<res.data.contracts.length;i++){
-            let arr = [];
-            arr.push(res.data.contracts[i].productName);
-
-            if(res.data.contracts[i].seller === userEmail){
-              arr.push("You");
-            }else{
-              arr.push(res.data.contracts[i].seller);
-            }
     
-            arr.push(res.data.contracts[i].grade);
-            arr.push(res.data.contracts[i].quantity);
-
-            if(res.data.contracts[i].status === false){
-              arr.push("Pending")
-            }else{
-              arr.push("Accepted");
+    useEffect(() => {
+      async function fetchMyAPI() {
+        await axios.get("http://localhost:5000/contract/getall",{withcredentials : true})
+        .then(res =>
+          {
+            for(let i=0;i<res.data.contracts.length;i++){
+              let arr = [];
+              arr.push(res.data.contracts[i].productName);
+              arr.push(res.data.contracts[i].seller);
+              arr.push(res.data.contracts[i].grade);
+              arr.push(res.data.contracts[i].quantity);
+              if(res.data.contracts[i].status === false){
+                arr.push("Pending")
+              }else{
+                arr.push("Accepted");
+              }
+              arr.push(<Link to={{ pathname: `/client/viewcontract/${res.data.contracts[i]._id}` }}>
+                <button>View</button></Link>)
+              data.push(arr);
             }
-
-            arr.push(<Link to={{ pathname: `/client/viewcontract/${res.data.contracts[i]._id}` }}>
-              <button>View</button></Link>)
-            data.push(arr);
           }
-        }
-      );
-    },[userEmail]);
+        );
+      }
+      fetchMyAPI()
+    })
 
 
   return (
@@ -93,17 +82,17 @@ const ContractFarming = (props) => {
               <CardHeader color="success">
                   <div style={{ display: "flex" }}>
                         <h4 className={classes.cardTitleWhite} style={{ float: "left", width: "100%" }}>Contract Farming </h4>
-                        <Tooltip title="Add Contract">
-                          <AddIcon onClick={() => console.log("Add")} className={classes.tr} />
-                        </Tooltip>
+                        <Tooltip title='Add Contract'>
+                          <Link to={{ pathname: `/client/newcontract` }}>
+                            {' '}
+                            <AddIcon className={classes.tr} />
+                          </Link>
+                      </Tooltip>
                     </div>
                 </ CardHeader>
                 <CardBody>
-                        <Table
-                          tableHeaderColor="rose"
-                          tableHead={["ProductName","Seller", "Grade", "Quantity", "Status", "View"]}
-                          tableData={data}
-                        />
+                  {data ? 
+                  <CustomizedTables contracts={data} /> : <div>Loading ....</div>}
                 </CardBody>
             </Card>
         </GridItem>
