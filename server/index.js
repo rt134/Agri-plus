@@ -29,4 +29,5 @@ mongoose.connect(process.env.MDB_CONNECT,{
 });
 
 app.use("/auth",require("./routers/userRouter"))
+app.use("/contract",require("./routers/contractRouter"))
 app.use("/order", require("./routers/orderRouter"))

@@ -81,6 +81,7 @@ export default function Dashboard() {
     }, 1000);
     return () => clearTimeout(timer);
   }, [time]);
+
   useEffect(() => {
     async function fetchMyApi() {
       await fetch(
@@ -115,7 +116,9 @@ export default function Dashboard() {
         .catch((e) => console.error(e));
     }
     fetchMyApi();
-  }, [place]);
+  });
+
+
   const dateBuilder = (d) => {
     let months = [
       "January",
@@ -202,7 +205,7 @@ export default function Dashboard() {
               <h3 className={classes.cardTitle}>{temp} °C</h3>
             </CardHeader>
             <CardFooter stats>
-             {temp-2} - {maxTemp+1} °C
+             {minTemp} - {maxTemp+2} °C
             </CardFooter>
           </Card>
         </GridItem>
