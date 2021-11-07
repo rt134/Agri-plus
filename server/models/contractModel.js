@@ -1,22 +1,19 @@
 const mongoose = require("mongoose")
 const contractSchema = new mongoose.Schema({
     seller: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
+        type: String,
         required : true,
     },
     buyer: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'user',
-        required : true,
+        type: String,
     },
     productName : {
         type : String,
         required : true,
     },
     grade : {
-        type : String,
-        enum : ["A","B","C","D","E","F"],
+        type : Number,
+        required : true,
     },
     totalPrice : {
         type : Number,
@@ -31,15 +28,19 @@ const contractSchema = new mongoose.Schema({
         required : true,
     },
     quantity : {
-        type : Number,
+        type : String,
         required : true,
     },
     status : {
         type : Boolean,
+        default : false,
     },
     deliveryDate : {
         type : Date,
         required : true,
+    },
+    description : {
+        type : String,
     }
 },{timestamps : true});
 

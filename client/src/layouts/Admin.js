@@ -15,6 +15,8 @@ import routes from "../routes.js";
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle.js";
 // import bgImage from "../assets/img/sidebar-2.jpg";
 import logo from "../assets/img/logo.png";
+import NewContract from "../components/NewContract/NewContract.jsx";
+import viewContract from "../components/ViewContract/viewContract.jsx";
 // import Login from "../views/Login/Login"
 
 let ps;
@@ -22,7 +24,8 @@ let ps;
 const switchRoutes = (
   <Switch>
 
-    {/* <Route includes path = '/client/login' component = {Login}></Route> */}
+    <Route includes path = '/client/newcontract' component = {NewContract}></Route>
+    <Route includes path = '/client/viewcontract' component = {viewContract}></Route>
 
 
     {routes.map((prop, key) => {
