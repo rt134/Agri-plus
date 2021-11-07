@@ -40,14 +40,14 @@ const styles = {
 const ViewContract = props => {
   const contractId = props.location.pathname.split('/')[3]
   const [productName, setProductname] = useState("");
-  const [quantity, setQuantity] = useState();
-  const [grade, setGrade] = useState();
-  const [totalPrice, setTotalPrice] = useState();
-  const [premium, setPremium] = useState();
-  const [defaultFine, setDefaultFine] = useState();
+  const [quantity, setQuantity] = useState("");
+  const [grade, setGrade] = useState("");
+  const [totalPrice, setTotalPrice] = useState("");
+  const [premium, setPremium] = useState("");
+  const [defaultFine, setDefaultFine] = useState("");
   const [deliveryDate, setDeliveryDate] = useState("");
   const [description, setDescription] = useState("");
-  const [buyer, setBuyer] = useState("NA");
+  const [buyer, setBuyer] = useState("");
   const [seller, setSeller] = useState("");
   const [status, setStatus] = useState(false);
   const { classes } = props;
@@ -172,7 +172,6 @@ const ViewContract = props => {
                             value: totalPrice,
                             required: true,
                             name: "totalPrice",
-                            type : "number"
                           }}
 
                         />
@@ -189,7 +188,6 @@ const ViewContract = props => {
                             value: premium,
                             required: true,
                             name: "premium",
-                            type : "number"
                           }}
                         />
                         </GridItem>
@@ -208,7 +206,6 @@ const ViewContract = props => {
                             value: grade,
                             required: true,
                             name: "grade",
-                            type : "number",
                           }}
 
                         />
@@ -224,7 +221,6 @@ const ViewContract = props => {
                           }}
                           inputProps={{
                             value: defaultFine,
-                            type : "number",
                             required: true,
                             name: "defaultFine",
                           }}
