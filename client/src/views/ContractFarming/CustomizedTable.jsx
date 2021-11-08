@@ -7,6 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import { Link } from 'react-router-dom'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -29,9 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function CustomizedTables(props) {
-  // console.log("Data",props.contracts[0]);
   const data = props.contracts;
-  console.log("Data", data);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -57,7 +56,7 @@ export default function CustomizedTables(props) {
               <StyledTableCell align="right">
                 {row.status === 1 ? "Accepted" : "Pending"}
               </StyledTableCell>
-              <StyledTableCell align="right"><button>View</button></StyledTableCell>
+              <StyledTableCell align="right"><Link to={{ pathname: `/client/viewcontract/${row._id}`, }}><button>View</button></Link></StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

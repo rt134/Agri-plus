@@ -1,0 +1,31 @@
+#grid::-webkit-scrollbar {
+    background:none;
+    width: 4px;
+  }
+
+  #grid::-webkit-scrollbar-thumb {
+    background-color: #48da4f;
+    border-radius: 20px;
+  } 
+
+
+  
+
+  #maingrid::-webkit-scrollbar {
+    background:none;
+    width: 4px;
+  }
+
+  #maingrid::-webkit-scrollbar-thumb {
+    background-color: #3ba03b;
+    border-radius: 20px;
+  } 
+
+  .h2-size {
+    color: green;opacity: 
+    0.5;
+    font-size: 3vh;
+    width: 100%;
+    text-align: center;
+    margin: auto;
+  }

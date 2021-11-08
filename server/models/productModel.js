@@ -11,7 +11,7 @@ const productSchema = new mongoose.Schema({
     },
     category : {
         type : String,
-        enum : ["PEST","WEED","VEGI","GRAIN"],
+        enum : ["PEST","FRUT","VEGI","GRAN"],
     },
     price : {
         type : Number,
