@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const Contract = require("../models/contractModel");
 const auth = require("../middleware/auth");
 
+// Add a contract
 router.post("/add", auth, async (req, res) => {
     try {
       const email  = req.email;
@@ -41,6 +42,7 @@ router.post("/add", auth, async (req, res) => {
     }
 });
 
+// Get all contracts 
 router.get("/getall", auth, async (req, res) => {
     try {
       const contracts = await Contract.find();
@@ -55,6 +57,7 @@ router.get("/getall", auth, async (req, res) => {
     }
 });
 
+// Get contract by ID
 router.get("/getbyid/:id", auth, async (req, res) => {
     try {
       const contractId = req.params.id;
@@ -68,6 +71,34 @@ router.get("/getbyid/:id", auth, async (req, res) => {
         message : "Error in Fetching detail"
       });
     }
+});
+
+// Accepting or Buying a contract
+router.post("/accept/:id", auth, async (req, res) => {
+  try {
+    const email = req.email;
+    const contractId = req.params.id;
+    const contract = await Contract.findById(contractId);
+    
+    if(email === contract.seller){
+      return res.status(301).json({
+        message : "Can't buy own contracts"
+      })
+    }
+
+    contract.buyer = email;
+    contract.status = true;
+    await contract.save();
+    
+    res.status(200).json({
+      message : "Bought successfully"
+    })
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({
+      message : "Error in buying contract"
+    });
+  }
 });
 
 

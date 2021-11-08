@@ -72,7 +72,19 @@ const ViewContract = props => {
         }catch(err){
             console.log(err);
         }
-    })
+  })
+
+  const Accept = event => {
+    event.preventDefault();
+
+    try{
+      axios.post(`http://localhost:5000/contract/accept/${contractId}`,
+      {withCredentials: true })
+    }catch(err){
+      console.log(err);
+    }
+  }
+  
 
 
   
@@ -80,7 +92,7 @@ const ViewContract = props => {
     <div>
       <GridContainer>
         <GridItem xs={12} sm={10} md={10}>
-          <form>
+          <form onSubmit={Accept}>
             <Card>
               <CardHeader color="success">
                 <div style={{ display: "flex" }}>
@@ -117,7 +129,6 @@ const ViewContract = props => {
                           }}
                           inputProps={{
                             value: buyer,
-                            required: true,
                             name: "buyer",
                             
                           }}
@@ -287,8 +298,8 @@ const ViewContract = props => {
 
                   </GridItem>
                 </GridContainer>
-                {status ? <Button disabled color="success">Buy Contract</Button> : <Button color="success">Buy Contract</Button>}
-                <Button color="rose">Pass</Button>
+                {status ? <Button disabled color="success">Buy Contract</Button> : <Button type="submit" color="success">Buy Contract</Button>}
+                <Button color="rose">Back</Button>
 
                 
               </CardBody>

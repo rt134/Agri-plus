@@ -5,7 +5,7 @@ const productSchema = new mongoose.Schema({
         ref: 'user',
         required : true,
     },
-    name : {
+    productName : {
         type : String,
         required : true,
     },
@@ -23,6 +23,7 @@ const productSchema = new mongoose.Schema({
     },
     image : {
         type : String,
+        default : "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/shopping-bag-full-of-fresh-vegetables-and-fruits-royalty-free-image-1128687123-1564523576.jpg"
     }
 })
 
