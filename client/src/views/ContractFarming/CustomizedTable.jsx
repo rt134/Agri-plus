@@ -30,7 +30,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 export default function CustomizedTables(props) {
-    // console.log("Data",props.contracts[0]);
+    console.log("Data",props.contracts);
   const data = props.contracts;
   return (
     <TableContainer component={Paper}>
