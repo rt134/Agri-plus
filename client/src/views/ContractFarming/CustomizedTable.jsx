@@ -1,12 +1,12 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import * as React from "react";
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -19,19 +19,19 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
+  "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
   // hide last border
-  '&:last-child td, &:last-child th': {
+  "&:last-child td, &:last-child th": {
     border: 0,
   },
 }));
 
-
 export default function CustomizedTables(props) {
-    console.log("Data",props.contracts);
+  // console.log("Data",props.contracts[0]);
   const data = props.contracts;
+  console.log("Data", data);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -43,19 +43,21 @@ export default function CustomizedTables(props) {
             <StyledTableCell align="right">Quantity</StyledTableCell>
             <StyledTableCell align="right">Status</StyledTableCell>
             <StyledTableCell align="right">View</StyledTableCell>
-          </TableRow>
+          </TableRow> 
         </TableHead>
-        <TableBody>
+        <TableBody> 
           {data.map((row) => (
             <StyledTableRow key={row[0]}>
               <StyledTableCell component="th" scope="row">
-                {row[0]}
+                {row.productName}
               </StyledTableCell>
-              <StyledTableCell align="right">{row[1]}</StyledTableCell>
-              <StyledTableCell align="right">{row[2]}</StyledTableCell>
-              <StyledTableCell align="right">{row[3]}</StyledTableCell>
-              <StyledTableCell align="right">{row[4]}</StyledTableCell>
-              <StyledTableCell align="right">{row[5]}</StyledTableCell>
+              <StyledTableCell align="right">{row.seller}</StyledTableCell>
+              <StyledTableCell align="right">{row.grade}</StyledTableCell>
+              <StyledTableCell align="right">{row.quantity}</StyledTableCell>
+              <StyledTableCell align="right">
+                {row.status === 1 ? "Accepted" : "Pending"}
+              </StyledTableCell>
+              <StyledTableCell align="right"><button>View</button></StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
