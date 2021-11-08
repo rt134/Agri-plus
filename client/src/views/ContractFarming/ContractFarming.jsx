@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card.js";
@@ -45,38 +45,25 @@ const styles = {
 
 const ContractFarming = (props) => {
     const {classes} = props
-    const data = [];
+    const [data, setData] = useState([]);
     
     useEffect(() => {
       async function fetchMyAPI() {
         await axios.get("http://localhost:5000/contract/getall",{withcredentials : true})
         .then(res =>
           {
-            for(let i=0;i<res.data.contracts.length;i++){
-              let arr = [];
-              arr.push(res.data.contracts[i].productName);
-              arr.push(res.data.contracts[i].seller);
-              arr.push(res.data.contracts[i].grade);
-              arr.push(res.data.contracts[i].quantity);
-              if(res.data.contracts[i].status === false){
-                arr.push("Pending")
-              }else{
-                arr.push("Accepted");
-              }
-              arr.push(<Link to={{ pathname: `/client/viewcontract/${res.data.contracts[i]._id}` }}>
-                <button>View</button></Link>)
-              data.push(arr);
-              console.log("data",data);
-            }
+            setData(res.data.contracts)
           }
         );
       }
       fetchMyAPI()
-    })
+    },[])
 
 
   return (
     <div>
+      {console.log("Data", data)}
+
       <GridContainer>
         <GridItem xs={12} sm={10} md={10}>
             <Card>
@@ -92,8 +79,8 @@ const ContractFarming = (props) => {
                     </div>
                 </ CardHeader>
                 <CardBody>
-                  {data.length === 0 ? 
-                  <div>Loading ....</div> : <CustomizedTables contracts={data} />}
+                  {data.length > 0 ? 
+                  <CustomizedTables contracts={data} /> : <div>Loading ....</div>}
                 </CardBody>
             </Card>
         </GridItem>
