@@ -66,6 +66,7 @@ const ContractFarming = (props) => {
               arr.push(<Link to={{ pathname: `/client/viewcontract/${res.data.contracts[i]._id}` }}>
                 <button>View</button></Link>)
               data.push(arr);
+              console.log("data",data);
             }
           }
         );
@@ -91,8 +92,8 @@ const ContractFarming = (props) => {
                     </div>
                 </ CardHeader>
                 <CardBody>
-                  {data ? 
-                  <CustomizedTables contracts={data} /> : <div>Loading ....</div>}
+                  {data.length === 0 ? 
+                  <div>Loading ....</div> : <CustomizedTables contracts={data} />}
                 </CardBody>
             </Card>
         </GridItem>

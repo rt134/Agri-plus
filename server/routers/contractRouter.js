@@ -12,7 +12,7 @@ router.post("/add", auth, async (req, res) => {
       let d0 = new Date();
       let d1 = new Date(deliveryDate);
       
-      if(d0.getTime() < d1.getTime()){
+      if(d0.getTime() > d1.getTime()){
         return res.status(400).json({
           message : "Please enter a future date"
         })
@@ -28,7 +28,7 @@ router.post("/add", auth, async (req, res) => {
         description,
         deliveryDate : d1,
       })
-
+      // console.log(newContract);
       await newContract.save();
 
       return res.status(200).json({

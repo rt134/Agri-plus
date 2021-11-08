@@ -51,7 +51,8 @@ const NewContract = props => {
   const Submit = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:5000/contract/add',{
+    try{
+      axios.post('http://localhost:5000/contract/add',{
         productName,
         grade,
         totalPrice,
@@ -65,6 +66,10 @@ const NewContract = props => {
     .then((res) => {
         console.log(res)
     })
+    }
+    catch(err){
+      console.log(err);
+    }
     
   }
 
