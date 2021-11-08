@@ -118,6 +118,22 @@ router.get("/loggedIn", (req, res) => {
   }
 });
 
+// Get users for chat
+router.get("/getusers", auth, async(req, res) => {
+  try {
+    const email = req.email;
+    const users = await User.find({email : {$ne : email}});
+    return res.status(200).json({
+      users
+    })
+  } catch (err) {
+    console.error(err)
+    res.json(false);
+  }
+});
+
+
+
 router.post("/update", auth, async (req, res) => {
   try {
     const { contact, address, district, pincode, country, state } = req.body;
