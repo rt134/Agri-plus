@@ -42,9 +42,9 @@ const styles = {
 const NewProduct = props => {
   const category = props.location.pathname.split('/')[3]
   const [productName, setProductname] = useState("");
-  const [quantity, setQuantity] = useState();
-  const [grade, setGrade] = useState();
-  const [price, setPrice] = useState();
+  const [quantity, setQuantity] = useState("");
+  const [grade, setGrade] = useState(0);
+  const [price, setPrice] = useState(0);
   const [image, setImageUrl] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [description, setDescription] = useState("");
@@ -86,6 +86,13 @@ const NewProduct = props => {
     },
     { withCredentials: true })
     .then((res) => {
+        setDescription("");
+        setExpiryDate("");
+        setGrade(0);
+        setImageUrl("");
+        setProductname("");
+        setQuantity("");
+        setPrice(0);
         toastSuccess("Product Added successfully");
     })
     }
