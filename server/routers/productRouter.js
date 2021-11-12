@@ -19,7 +19,7 @@ router.post("/add", auth, async (req, res) => {
         image,
       })
 
-      await newProduct.save();
+      // await newProduct.save();
 
       return res.status(200).json({
         message : "Product added Successfully"
