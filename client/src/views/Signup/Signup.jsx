@@ -23,26 +23,6 @@ const styles = {
   },
 };
 
-// class Signup extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       name: "",
-//       email: "",
-//       password: "",
-//       confirmPassword: "",
-//     };
-//   }
-
-//   render() {
-//     const { classes } = this.props;
-//     return (
-
-//     );
-//   }
-// }
-
 function Signup(props) {
   const { classes } = props;
   const [name, setName] = useState();
