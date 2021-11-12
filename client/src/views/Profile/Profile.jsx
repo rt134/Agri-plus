@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { makeStyles } from "@material-ui/core/styles";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card.js";
@@ -8,10 +7,10 @@ import CustomInput from "../../components/CustomInput/CustomInput";
 import { Tooltip } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import Button from "../../components/CustomButtons/Button";
-// import CardIcon from "../../components/Card/CardIcon.js";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CardBody from "../../components/Card/CardBody.js";
-// import AuthConext from "../../context/AuthContext";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import CardFooter from "../../components/Card/CardFooter.js";
 import axios from 'axios'
 
@@ -73,10 +72,31 @@ const Profile = props => {
 
   }, [])
 
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
   const update = (event) => {
     event.preventDefault();
 
-    axios.post('http://localhost:5000/auth/update',{
+    try{
+      axios.post('http://localhost:5000/auth/update',{
       contact,
       address,
       district,
@@ -86,8 +106,12 @@ const Profile = props => {
     },
     { withCredentials: true })
     .then(() => {
+      toastSuccess("Profile Updated Successfully")
       setEditable(true);
     })
+    }catch(err){
+      toastError("Error in updating profile");
+    }
   }
 
   const handleChangeContact = (event) => {
@@ -292,6 +316,15 @@ const Profile = props => {
           </form>
         </GridItem>
       </GridContainer>
+      <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
     </div>
   );
 }

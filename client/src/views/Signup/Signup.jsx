@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { useHistory } from "react-router-dom";
-// import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -11,9 +9,9 @@ import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Button from "../../components/CustomButtons/Button";
-// import CardIcon from "../../components/Card/CardIcon.js";
 import CardBody from "../../components/Card/CardBody.js";
-// import CardFooter from "../../components/Card/CardFooter.js";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   chat: {
@@ -43,6 +41,26 @@ function Signup(props) {
     setPasswordVerify(event.target.value);
   };
 
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -58,11 +76,11 @@ function Signup(props) {
           { withCredentials: true }
         )
         .then((res) => {
-          // console.log(res);
+          toastSuccess("SignedUp Successfully")
           history.push("/client/dashboard");
         });
     } catch (err) {
-      console.log(err);
+      toastError("Error Signing In")
     }
   };
 
@@ -150,6 +168,15 @@ function Signup(props) {
           </Card>
         </GridItem>
       </GridContainer>
+      <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
     </div>
   );
 }

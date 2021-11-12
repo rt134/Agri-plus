@@ -4,6 +4,8 @@ import stopImg from '../../assets/img/stop.jpg'
 import processingImg from '../../assets/img/processing.gif';
 import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   cardCategoryWhite: {
@@ -38,6 +40,26 @@ function Upload() {
   const [proc, setProc] = useState(false);
   const [disease, setDisease] = useState("");
 
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
   const uploadData = async () => {
     try {
       const uploadData = new FormData();
@@ -48,10 +70,11 @@ function Upload() {
       })
       const data = await res.json();
       setDisease(data.name);
+      toastSuccess("Image processed Successfully")
       setProc(false);
       setImage(null);
     }catch(err){
-      console.log("Api chala bhai");
+      toastError("Unable to process");
     }
   }
 
@@ -97,14 +120,7 @@ function Upload() {
 
               {
                 disease === "Healthy" ? <h4>No disease detected</h4> : 
-                // <div>
-                // <Tooltip title='Go to Pesticides'>
-                  
-                //   <Link to={{ pathname: `/client/pesticides` }}>
-                //     <ArrowForwardIcon className={classes.tr} />
-                //   </Link>
-                // </Tooltip>
-                // </div>
+                
                 null
               }
 
@@ -112,30 +128,15 @@ function Upload() {
           }
         </div>
 
-{/* 
-      {
-                disease === "BrownSpot" ? <h4>Hello, Hi</h4> : null
-              }
-
-              {
-                disease === "Hispa" ? <h4>Hello, HiHH</h4> : null
-              }
-
-              {
-                disease === "LeafBlast" ? <h4>Trycyclozole, Contaf Plus, Carbendazim</h4> : null
-              }
-
-              {
-                disease === "Healthy" ? <h4>No disease detected</h4> : 
-                <div>
-                  <h4>Buy Pesticides</h4>
-                <Tooltip title='Go to Pesticides'>
-                  
-                  <Link to={{ pathname: `/client/pesticides` }}>
-                    <ArrowForwardIcon className={classes.tr} />
-                  </Link>
-                </Tooltip>
-                </div> */}
+        <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
 
     </div>
   );

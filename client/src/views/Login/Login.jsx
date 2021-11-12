@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import { makeStyles } from "@material-ui/core/styles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
@@ -9,10 +8,10 @@ import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
 import CustomInput from "../../components/CustomInput/CustomInput";
 import Button from "../../components/CustomButtons/Button";
-// import CardIcon from "../../components/Card/CardIcon.js";
 import CardBody from "../../components/Card/CardBody.js";
-// import CardFooter from "../../components/Card/CardFooter.js";
 import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   chat: {
@@ -35,6 +34,26 @@ function Login (props) {
   const handleChangePassword = (event) => {
     setPassword(event.target.value);
   };
+
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
   
 
   const handleSubmit = async (event) => {
@@ -49,11 +68,12 @@ function Login (props) {
           },
           { withCredentials: true }
         )
-        .then((res) => {
+        .then(() => {
           history.push("/client/dashboard");
+          toastSuccess("Logged In Successfully")
         });
     } catch (err) {
-      console.log(err);
+      toastError("Error Logging In")
     }
   };
 
@@ -116,6 +136,15 @@ function Login (props) {
           </Card>
         </GridItem>
       </GridContainer>
+      <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
     </div>
   );
 }
