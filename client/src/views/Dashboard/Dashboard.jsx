@@ -116,7 +116,7 @@ export default function Dashboard() {
         .catch((e) => console.error(e));
     }
     fetchMyApi();
-  });
+  },[place]);
 
 
   const dateBuilder = (d) => {
@@ -147,7 +147,6 @@ export default function Dashboard() {
     let date = d.getDate();
     let month = months[d.getMonth()];
     let year = d.getFullYear();
-    console.log(new Date());
 
     return `${day} ${date} ${month} ${year}`;
   };
