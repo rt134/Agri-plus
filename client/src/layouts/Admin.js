@@ -9,7 +9,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "../components/Navbars/Navbar.js";
 import Footer from "../components/Footer/Footer.js";
 import Sidebar from "../components/Sidebar/Sidebar.js";
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import url from 'url'
 import routes from "../routes.js";
 
 import styles from "../assets/jss/material-dashboard-react/layouts/adminStyle.js";
@@ -56,12 +58,38 @@ export default function Admin({ ...rest }) {
   // states and functions
   const [color] = React.useState("green");
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  var connection = new WebSocket(
+    url.format({
+      protocol: window.location.protocol === 'https:' ? 'wss' : 'ws',
+      hostname: process.env.WDS_SOCKET_HOST || window.location.hostname,
+      port: process.env.WDS_SOCKET_PORT || window.location.port,
+      pathname: process.env.WDS_SOCKET_PATH || '/sockjs-node',
+      slashes: true,
+    })
+  );
+
+  connection.onclose = function () {
+    if (typeof console !== 'undefined' && typeof console.info === 'function') {
+      toastError("Connection lost !!!");
+    }
+  };
   
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const getRoute = () => {
-    return window.location.pathname !== "/admin/maps";
+    return window.location.pathname !== "/client/maps";
   };
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
@@ -113,6 +141,16 @@ export default function Admin({ ...rest }) {
         {getRoute() ? <Footer /> : null}
         
       </div>
+      <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
+
     </div>
   );
 }
