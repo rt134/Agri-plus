@@ -59,7 +59,7 @@ class Fruits extends React.Component {
               <div style={{ display: "flex" }}>
                         <h4 className={classes.cardTitleWhite} style={{ float: "left", width: "100%" }}>Fruits </h4>
                         <Tooltip title='Add Fruits'>
-                          <Link to={{ pathname: `/client/addproduct` }}>
+                          <Link to={{ pathname: `/client/addproduct/FRUT` }}>
                             {' '}
                             <AddIcon className={classes.tr} />
                           </Link>

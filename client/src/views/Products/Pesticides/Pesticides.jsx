@@ -58,7 +58,7 @@ class Pesticides extends React.Component {
               <div style={{ display: "flex" }}>
                         <h4 className={classes.cardTitleWhite} style={{ float: "left", width: "100%" }}>Pesticides </h4>
                         <Tooltip title='Add Pesticides'>
-                          <Link to={{ pathname: `/client/addproduct` }}>
+                          <Link to={{ pathname: `/client/addproduct/PEST` }}>
                             {' '}
                             <AddIcon className={classes.tr} />
                           </Link>

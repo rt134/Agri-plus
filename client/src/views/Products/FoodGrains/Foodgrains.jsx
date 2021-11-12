@@ -58,7 +58,7 @@ class Foodgrains extends React.Component {
               <div style={{ display: "flex" }}>
                         <h4 className={classes.cardTitleWhite} style={{ float: "left", width: "100%" }}>Food Grains </h4>
                         <Tooltip title='Add Food grains'>
-                          <Link to={{ pathname: `/client/addproduct` }}>
+                          <Link to={{ pathname: `/client/addproduct/GRAN` }}>
                             {' '}
                             <AddIcon className={classes.tr} />
                           </Link>
