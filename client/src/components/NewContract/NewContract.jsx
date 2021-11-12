@@ -9,6 +9,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   cardCategoryWhite: {
@@ -48,6 +50,26 @@ const NewContract = props => {
   const [description, setDescription] = useState("");
   const { classes } = props;
 
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
   const Submit = (event) => {
     event.preventDefault();
 
@@ -63,12 +85,12 @@ const NewContract = props => {
         description,
     },
     { withCredentials: true })
-    .then((res) => {
-        console.log(res)
+    .then(() => {
+        toastSuccess("Contract Added Successfully")
     })
     }
     catch(err){
-      console.log(err);
+      toastError("Unable to add Contract")
     }
     
   }
@@ -287,6 +309,15 @@ const NewContract = props => {
           </form>
         </GridItem>
       </GridContainer>
+      <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
     </div>
   );
 }

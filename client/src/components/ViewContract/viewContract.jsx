@@ -9,6 +9,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CardBody from "../../components/Card/CardBody.js";
 import CardFooter from "../../components/Card/CardFooter.js";
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   cardCategoryWhite: {
@@ -52,6 +54,26 @@ const ViewContract = props => {
   const [status, setStatus] = useState(false);
   const { classes } = props;
 
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
   useEffect(() => {
     try{
         axios.get(`http://localhost:5000/contract/getbyid/${contractId}`,
@@ -80,8 +102,9 @@ const ViewContract = props => {
     try{
       axios.post(`http://localhost:5000/contract/accept/${contractId}`,
       {withCredentials: true })
+      .then(() => toastSuccess("Bought Contract sucessfully"))
     }catch(err){
-      console.log(err);
+      toastError("Unable to Buy");
     }
   }
   
@@ -311,6 +334,15 @@ const ViewContract = props => {
           </form>
         </GridItem>
       </GridContainer>
+      <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
     </div>
   );
 }

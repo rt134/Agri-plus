@@ -9,6 +9,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import CardBody from "../Card/CardBody.js";
 import CardFooter from "../Card/CardFooter.js";
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const styles = {
   cardCategoryWhite: {
@@ -38,16 +40,35 @@ const styles = {
 };
 
 const NewProduct = props => {
-  // const Category = props.location.pathname.split('/')[3]
+  const category = props.location.pathname.split('/')[3]
   const [productName, setProductname] = useState("");
   const [quantity, setQuantity] = useState();
   const [grade, setGrade] = useState();
-  const [totalPrice, setTotalPrice] = useState();
-  const [premium, setPremium] = useState();
-  const [defaultFine, setDefaultFine] = useState();
-  const [deliveryDate, setDeliveryDate] = useState("");
+  const [price, setPrice] = useState();
+  const [image, setImageUrl] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
   const [description, setDescription] = useState("");
   const { classes } = props;
+
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
 
   const Submit = (event) => {
     event.preventDefault();
@@ -55,21 +76,21 @@ const NewProduct = props => {
     try{
       axios.post('http://localhost:5000/product/add',{
         productName,
+        category,
         grade,
-        totalPrice,
-        premium,
-        defaultFine,
-        deliveryDate,
+        price,
+        expiryDate,
         quantity,
+        image,
         description,
     },
     { withCredentials: true })
     .then((res) => {
-        console.log(res)
+        toastSuccess("Product Added successfully");
     })
     }
     catch(err){
-      console.log(err);
+      toastError("Unable to add Product");
     }
     
   }
@@ -90,20 +111,16 @@ const NewProduct = props => {
     if(event.target.value >= 0 && event.target.value <= 10){setGrade(event.target.value);}
   };
 
-  const handleChangeTotalPrice = (event) => {
-    if(event.target.value >= 0){setTotalPrice(event.target.value);}
+  const handleChangePrice = (event) => {
+    if(event.target.value >= 0){setPrice(event.target.value);}
   };
 
-  const handleChangePremium = (event) => {
-    if(event.target.value >= 0){setPremium(event.target.value);}
+  const handleChangeImageUrl = (event) => {
+    setImageUrl(event.target.value);
   };
 
-  const handleChangeDefaultFine = (event) => {
-    if(event.target.value >= 0){setDefaultFine(event.target.value);}
-  };
-
-  const handleChangeDeliveryDate = (event) => {
-    setDeliveryDate(event.target.value);
+  const handleChangeExpiryDate = (event) => {
+    setExpiryDate(event.target.value);
   };
 
   return (
@@ -141,6 +158,26 @@ const NewProduct = props => {
 
                         <GridItem xs={12} sm={6} md={6}>
                           <CustomInput
+                          labelText="Category"
+                          id="category"
+                          formControlProps={{
+                            fullWidth: true,
+                            disabled : true,
+                          }}
+                          inputProps={{
+                            value: category,
+                            required: true,
+                          }}
+                        />
+                        </GridItem>
+
+                        
+                      </GridContainer>
+
+
+                      <GridContainer>
+                      <GridItem xs={12} sm={6} md={6}>
+                          <CustomInput
                           labelText="Quantity"
                           id="quantity"
                           formControlProps={{
@@ -155,44 +192,25 @@ const NewProduct = props => {
                           }}
                         />
                         </GridItem>
-                      </GridContainer>
-
-
-                      <GridContainer>
                         <GridItem xs={12} sm={6} md={6}>
                           <CustomInput
-                          labelText="Total Price"
-                          id="totalPrice"
+                          labelText="Price {Per Unit}"
+                          id="Price"
                           formControlProps={{
                             fullWidth: true,
                           }}
                           inputProps={{
-                            value: totalPrice,
+                            value: price,
                             required: true,
-                            name: "totalPrice",
-                            onChange: handleChangeTotalPrice,
+                            name: "price",
+                            onChange: handleChangePrice,
                             type : "number"
                           }}
 
                         />
                         </GridItem>
 
-                        <GridItem xs={12} sm={6} md={6}>
-                          <CustomInput
-                          labelText="Premium Price"
-                          id="premium"
-                          formControlProps={{
-                            fullWidth: true,
-                          }}
-                          inputProps={{
-                            value: premium,
-                            required: true,
-                            name: "premium",
-                            onChange: handleChangePremium,
-                            type : "number"
-                          }}
-                        />
-                        </GridItem>
+                        
                       </GridContainer>
 
 
@@ -217,38 +235,36 @@ const NewProduct = props => {
 
                         <GridItem xs={12} sm={6} md={6}>
                           <CustomInput
-                          labelText="Default Fine"
-                          id="defaultFine"
-                          formControlProps={{
-                            fullWidth: true,
-                            
-                          }}
-                          inputProps={{
-                            value: defaultFine,
-                            type : "number",
-                            required: true,
-                            name: "defaultFine",
-                            onChange: handleChangeDefaultFine
-                          }}
-                        />
+                            labelText="Expiry Date (DD/MM/YYYY)"
+                            id="epirydate"
+                            formControlProps={{
+                              fullWidth: true,
+                            }}
+                            inputProps={{
+                              value: expiryDate,
+                              required: true,
+                              name: "expiryDate",
+                              onChange: handleChangeExpiryDate
+                            }}
+
+                          />
                         </GridItem>
                       </GridContainer>
 
                       <GridContainer>
                         <GridItem xs={12} sm={6} md={6}>
-                          <CustomInput
-                          labelText="Delivery Date (DD/MM/YYYY)"
-                          id="deliverydate"
+                
+                        <CustomInput
+                          labelText="Image URL (Optional)"
+                          id="imageUrl"
                           formControlProps={{
                             fullWidth: true,
                           }}
                           inputProps={{
-                            value: deliveryDate,
-                            required: true,
-                            name: "deliveryDate",
-                            onChange: handleChangeDeliveryDate
+                            value: image,
+                            name: "imageUrl",
+                            onChange: handleChangeImageUrl
                           }}
-
                         />
                         </GridItem>
 
@@ -288,6 +304,15 @@ const NewProduct = props => {
           </form>
         </GridItem>
       </GridContainer>
+      <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
     </div>
   );
 }
