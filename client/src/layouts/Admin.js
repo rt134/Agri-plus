@@ -28,7 +28,7 @@ const switchRoutes = (
   <Switch>
 
     <Route includes path = '/client/newcontract' component = {NewContract}></Route>
-    <Route includes path = '/client/newproduct' component = {NewProduct}></Route>
+    <Route includes path = '/client/addproduct' component = {NewProduct}></Route>
     <Route includes path = '/client/viewcontract' component = {viewContract}></Route>
 
 

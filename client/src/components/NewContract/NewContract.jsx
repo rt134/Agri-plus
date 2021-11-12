@@ -41,11 +41,11 @@ const styles = {
 
 const NewContract = props => {
   const [productName, setProductname] = useState("");
-  const [quantity, setQuantity] = useState();
-  const [grade, setGrade] = useState();
-  const [totalPrice, setTotalPrice] = useState();
-  const [premium, setPremium] = useState();
-  const [defaultFine, setDefaultFine] = useState();
+  const [quantity, setQuantity] = useState("");
+  const [grade, setGrade] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [premium, setPremium] = useState(0);
+  const [defaultFine, setDefaultFine] = useState(0);
   const [deliveryDate, setDeliveryDate] = useState("");
   const [description, setDescription] = useState("");
   const { classes } = props;
@@ -86,7 +86,15 @@ const NewContract = props => {
     },
     { withCredentials: true })
     .then(() => {
-        toastSuccess("Contract Added Successfully")
+      setProductname("");
+      setQuantity("");
+      setGrade(0);
+      setTotalPrice(0);
+      setPremium(0);
+      setDefaultFine(0);
+      setDeliveryDate("");
+      setDescription("");
+      toastSuccess("Contract Added Successfully")
     })
     }
     catch(err){
