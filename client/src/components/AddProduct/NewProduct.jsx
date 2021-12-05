@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GridItem from "../Grid/GridItem.js";
 import GridContainer from "../Grid/GridContainer.js";
 import Card from "../Card/Card.js";
@@ -43,9 +43,9 @@ const NewProduct = props => {
   const category = props.location.pathname.split('/')[3]
   const [productName, setProductname] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [grade, setGrade] = useState(0);
-  const [price, setPrice] = useState(0);
-  const [image, setImageUrl] = useState("");
+  const [grade, setGrade] = useState();
+  const [price, setPrice] = useState();
+  const [image, setImageUrl] = useState("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/shopping-bag-full-of-fresh-vegetables-and-fruits-royalty-free-image-1128687123-1564523576.jpg");
   const [expiryDate, setExpiryDate] = useState("");
   const [description, setDescription] = useState("");
   const { classes } = props;
@@ -89,8 +89,8 @@ const NewProduct = props => {
         setDescription("");
         setExpiryDate("");
         setGrade(0);
-        setImageUrl("");
         setProductname("");
+        setImageUrl("");
         setQuantity("");
         setPrice(0);
         toastSuccess("Product Added successfully");
@@ -138,7 +138,7 @@ const NewProduct = props => {
             <Card>
               <CardHeader color="success">
                 <div style={{ display: "flex" }}>
-                      <h4 className={classes.cardTitleWhite} style={{ float: "left", width: "100%" }}>Create Contract </h4>
+                      <h4 className={classes.cardTitleWhite} style={{ float: "left", width: "100%" }}>Add Product </h4>
                   </div>
               </ CardHeader>
               <CardBody>

@@ -8,18 +8,23 @@ const auth = require("../middleware/auth");
 router.post("/add", auth, async (req, res) => {
     try {
       const userId  = req.user;
-      const {productName, category, price, quantity, image} = req.body
+      const {productName, grade,category, price, quantity, image,expiryDate} = req.body
       
+
+      let d1 = new Date(expiryDate);
+
       const newProduct = Product({
         owner : userId,
         productName,
         category,
         price,
+        grade,
         quantity,
         image,
+        expiryDate : d1,
       })
 
-      // await newProduct.save();
+      await newProduct.save();
 
       return res.status(200).json({
         message : "Product added Successfully"
@@ -65,12 +70,13 @@ router.get("/getbyid/:id", auth, async (req, res) => {
 });
 
 // Get product by product Category
-router.get("/getbyid/:cat", auth, async (req, res) => {
+router.get("/getbycat/:cat", auth, async (req, res) => {
     try {
-      const productCat = req.params.id;
+      const productCat = req.params.cat;
       const product = await Product.find({category : productCat});
+      
       res.status(200).json({
-        product
+        "products" : product
       })
     } catch (err) {
       res.status(500).send({

@@ -9,6 +9,10 @@ const productSchema = new mongoose.Schema({
         type : String,
         required : true,
     },
+    expiryDate : {
+        type : Date,
+        required : true,
+    },
     category : {
         type : String,
         enum : ["PEST","FRUT","VEGI","GRAN"],
@@ -17,13 +21,17 @@ const productSchema = new mongoose.Schema({
         type : Number,
         required : true,
     },
-    quantity : {
+    grade : {
         type : Number,
+        required : true,
+    },
+    quantity : {
+        type : String,
         required : true,
     },
     image : {
         type : String,
-        default : "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/shopping-bag-full-of-fresh-vegetables-and-fruits-royalty-free-image-1128687123-1564523576.jpg"
+        required : true,
     }
 })
 
