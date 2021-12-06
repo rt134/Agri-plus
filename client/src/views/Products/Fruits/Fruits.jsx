@@ -12,6 +12,8 @@ import Button from '../../../components/CustomButtons/Button'
 import { Link } from 'react-router-dom'
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Grid from '@material-ui/core/Grid';
 
@@ -64,6 +66,42 @@ const Fruits  = props => {
     }
   },[]);
 
+  const toastSuccess = (message) => toast.success(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const toastError = (message) => toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined
+  })
+
+  const addToCart = (prod) => {
+
+    try{
+      axios.post(`http://localhost:5000/cart/add`,{
+        productId : prod._id
+      },{withCredentials:true})
+      .then(res => {
+        let message = prod.productName + " added to cart";
+        toastSuccess(message);
+      })
+    }catch(err){
+      toastError("Unable to add")
+    }
+
+  }
+
     const { classes } = props
     return (
       <div >
@@ -84,7 +122,6 @@ const Fruits  = props => {
               <CardBody Style={{ textAlign: "center" }}>
                 <br />
                 <Grid container spacing={2} style={{ textAlign: 'center', padding: '0 10px', margin: '30px 0px' }}>
-
                 {
                   product.map(prod => 
 
@@ -93,18 +130,25 @@ const Fruits  = props => {
                         <img alt = {prod.image} className={classes.images} src={prod.image}></img>
                         <p style={{ marginBottom: 0 }}>{prod.productName}</p>
                         <p><small>{prod.price} Rs/Unit(Kg)</small></p>
-                        <Button color="rose">Add to cart</Button>
+                        <Button color="rose" onClick={() => addToCart(prod)}>Add to cart</Button>
                       </Paper>
                     </Grid>
-                    
                   )
                 }
-                
                 </Grid>
               </CardBody>
             </Card>
           </GridItem>
         </GridContainer>
+        <ToastContainer position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover />
       </div>
     )
   

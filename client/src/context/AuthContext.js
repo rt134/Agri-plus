@@ -28,21 +28,7 @@ function AuthContextProvider(props) {
     progress: undefined
   })
 
-  // var connection = new WebSocket(
-  //   url.format({
-  //     protocol: window.location.protocol === 'https:' ? 'wss' : 'ws',
-  //     hostname: process.env.WDS_SOCKET_HOST || window.location.hostname,
-  //     port: process.env.WDS_SOCKET_PORT || window.location.port,
-  //     pathname: process.env.WDS_SOCKET_PATH || '/sockjs-node',
-  //     slashes: true,
-  //   })
-  // );
 
-  // connection.onclose = function () {
-  //   if (typeof console !== 'undefined' && typeof console.info === 'function') {
-  //     toastError("Connection lost !!!");
-  //   }
-  // };
 
   async function getLoggedIn() {
     try{

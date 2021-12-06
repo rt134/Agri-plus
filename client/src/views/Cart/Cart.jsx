@@ -3,9 +3,6 @@ import GridItem from "../../components/Grid/GridItem.js";
 import GridContainer from "../../components/Grid/GridContainer.js";
 import Card from "../../components/Card/Card.js";
 import CardHeader from "../../components/Card/CardHeader.js";
-import CustomInput from "../../components/CustomInput/CustomInput";
-import { Tooltip } from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
 import Button from "../../components/CustomButtons/Button";
 import withStyles from "@material-ui/core/styles/withStyles";
 import CardBody from "../../components/Card/CardBody.js";
@@ -13,6 +10,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import CardFooter from "../../components/Card/CardFooter.js";
 import axios from 'axios'
+import Paper from '@material-ui/core/Paper';
+import RemoveIcon from '@material-ui/icons/Remove';
+import AddIcon from '@material-ui/icons/Add';
+
+import Grid from '@material-ui/core/Grid';
 
 const styles = {
   cardCategoryWhite: {
@@ -38,23 +40,38 @@ const styles = {
       color: "black",
     }
   },
+  images: {
+    height: '200px',
+    width: '200px',
+  }
 
 };
 
 const Cart = props => {
+  const [product, setProduct] = useState([]);
+  const [total, setTotal] = useState(0);
   const { classes } = props;
 
   useEffect(() => {
     try{
       axios.get('http://localhost:5000/cart/get',{withCredentials : true})
       .then(res => {
-        console.log(res.data)
-      })
+        if(res.data.cart){
+        setProduct(res.data.cart[0].products);
+      }})
     }catch(err){
       console.log(err);
     }
 
   }, [])
+
+  useEffect(() => {
+    let total = 0;
+    for(let i=0;i<product.length;i++){
+      total += product[i].productId.price*product[i].quantity;
+    }
+    setTotal(total);
+  }, [product])
 
   const toastSuccess = (message) => toast.success(message, {
     position: "top-right",
@@ -76,9 +93,53 @@ const Cart = props => {
     progress: undefined
   })
 
-  
 
-  
+  const updateProduct = () =>{
+    try{
+      axios.get('http://localhost:5000/cart/get',{withCredentials : true})
+      .then(res => {
+        setProduct(res.data.cart[0].products);
+      })
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+  const removeFromCart = (prod) => {
+    
+    try{
+      axios.post(`http://localhost:5000/cart/del`,{
+        productId : prod.productId._id
+      },{withCredentials:true})
+      .then(res => {
+        updateProduct();
+        let message = prod.productId.productName + " removed";
+        toastSuccess(message);
+        
+      })
+    }catch(err){
+      toastError("Unable to remove");
+    }
+
+  }
+
+  const addToCart = (prod) => {
+
+    try{
+      axios.post(`http://localhost:5000/cart/add`,{
+        productId : prod.productId._id
+      },{withCredentials:true})
+      .then(res => {
+        updateProduct();
+        let message = prod.productId.productName + " added to cart";
+        toastSuccess(message);
+      })
+    }catch(err){
+      toastError("Unable to add");
+    }
+
+  }
+
 
   return (
     <div>
@@ -91,10 +152,32 @@ const Cart = props => {
                       <h4 className={classes.cardTitleWhite} style={{ float: "left", width: "100%" }}>Cart </h4>
                   </div>
               </ CardHeader>
-              <CardBody>
-                
+              <CardBody Style={{ textAlign: "center" }}>
+                <br />
+                <Grid container spacing={2} style={{ textAlign: 'center', padding: '0 10px', margin: '30px 0px' }}>
+
+                {
+                  product.map(prod => 
+                    
+                    <Grid item xs style={{ margin: 10 }}>
+                      <Paper className={classes.paper} style={{ paddingTop: 20, paddingBottom: 20 }}>
+                        <img alt = {prod.productId.image} className={classes.images} src={prod.productId.image}></img>
+                        <p style={{ marginBottom: 0 }}>{prod.productId.productName}</p>
+                        <p><small>{prod.productId.price} Rs/Unit(Kg)</small></p>
+                        <p><small>Quantity : {prod.quantity}</small></p>
+                        <p><small>Total Price : {prod.quantity*prod.productId.price}</small></p>
+                        <Button color="rose" onClick={() => removeFromCart(prod)}><RemoveIcon /></Button>
+                        <Button color="rose" onClick={() => addToCart(prod)}><AddIcon /></Button>
+                      </Paper>
+                    </Grid>
+                    
+                  )
+                }
+
+                </Grid>
               </CardBody>
               <CardFooter>
+                <h3>Total payable amount : {total}</h3>
                 <Button type="submit" color="success">Checkout</Button>
               </CardFooter>
             </Card>
