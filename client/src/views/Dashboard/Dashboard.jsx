@@ -25,9 +25,7 @@ export default function Dashboard() {
 
   const [query, setQuery] = useState("Delhi");
   const [weather, setWeather] = useState({});
-  // const [forecast, setForecast] = useState({});
   const [time, setTime] = useState("");
-  // const [date, setDate] = useState("");
   const [temp, setTemp] = useState("");
   const [maxTemp, setMaxTemp] = useState("");
   const [minTemp, setMinTemp] = useState("");
@@ -45,7 +43,6 @@ export default function Dashboard() {
           .then((res) => res.json())
           .then((result) => {
             setWeather(result);
-            console.log(weather);
             setQuery("");
             setTemp(Math.round(result.main.temp));
             setMaxTemp(result.main.temp_max);
@@ -66,7 +63,6 @@ export default function Dashboard() {
           .then((res) => res.json())
           .then((result) => {
             setFive(result.list);
-            console.log(five);
           })
           .catch((e) => console.error(e));
       }
@@ -90,7 +86,6 @@ export default function Dashboard() {
         .then((res) => res.json())
         .then((result) => {
           setWeather(result);
-          console.log(weather);
 
           setQuery("");
           setTemp(Math.round(result.main.temp));

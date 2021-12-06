@@ -10,6 +10,7 @@ import Vegetables from './views/Products/Vegetables/Vegetables';
 import Pesticides from './views/Products/Pesticides/Pesticides';
 import Fruits from './views/Products/Fruits/Fruits'
 import Support from './views/Support/support';
+import CartPage from './views/Cart/Cart'
 
 
 // Icons
@@ -23,6 +24,7 @@ import PermPhoneMsgIcon from '@material-ui/icons/PermPhoneMsg';
 import SearchIcon from '@material-ui/icons/Search';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import AppleIcon from '@material-ui/icons/Apple';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const dashboardRoutes = [
   {
@@ -87,6 +89,13 @@ const dashboardRoutes = [
     name: "Chat",
     icon: MessageIcon,
     component: ChatPage,
+    layout: "/client",
+  },
+  {
+    path: "/cart",
+    name: "Cart",
+    icon: ShoppingCartIcon,
+    component: CartPage,
     layout: "/client",
   },
   {

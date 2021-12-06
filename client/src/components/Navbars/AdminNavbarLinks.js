@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,23 +10,18 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Hidden from "@material-ui/core/Hidden";
 import Poppers from "@material-ui/core/Popper";
 import Divider from "@material-ui/core/Divider";
+
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 import Notifications from "@material-ui/icons/Notifications";
 import axios from "axios";
-// import Dashboard from "@material-ui/icons/Dashboard";
-// import Search from "@material-ui/icons/Search";
-// core components
-// import CustomInput from "../../components/CustomInput/CustomInput.js";
 import Button from "../../components/CustomButtons/Button.js";
 
 import styles from "../../assets/jss/material-dashboard-react/components/headerLinksStyle.js";
 import { useHistory } from "react-router-dom";
-import AuthConext from "../../context/AuthContext";
 const useStyles = makeStyles(styles);
 
 export default function AdminNavbarLinks() {
-  const loggedIn = useContext(AuthConext);
   const classes = useStyles();
   let history = useHistory();
   const [openNotification, setOpenNotification] = React.useState(null);
@@ -50,14 +45,15 @@ export default function AdminNavbarLinks() {
   };
   const handleCloseProfile = () => {
     axios.get("http://localhost:5000/auth/logout").then((res) => {
-      // console.log(res);
       history.push("/client/login");
     });
   };
 
   return (
     <div style={{ display: "flex", flexDirection: "row" }}>
-      <MenuItem style={{fontWeight: "bold", color: "black"}}>{loggedIn.loggedIn && loggedIn.loggedIn.username}</MenuItem>
+
+      {/* <MenuItem style={{fontWeight: "bold", color: "black"}}><ShoppingCartIcon /></MenuItem> */}
+    
 
       <div className={classes.manager}>
         <Button
@@ -70,10 +66,8 @@ export default function AdminNavbarLinks() {
           className={classes.buttonLink}
           style={{ color: "black" }}
         >
-          {/* <h4>{loggedIn.loggedIn && loggedIn.loggedIn.username}</h4> */}
 
           <Notifications className={classes.icons} />
-          {/* <span className={classes.notifications}>5</span> */}
           <Hidden mdUp implementation="css">
             <p onClick={handleCloseNotification} className={classes.linkText}>
               Notification
