@@ -4,7 +4,6 @@ function auth(req, res, next) {
     const token = req.cookies.token;
     if (!token) return res.status(401).json({ errorMessage: "Unauthorized" });
     const verified = jwt.verify(token, process.env.JWT_SECRET);
-    // console.log(verified);
     req.user = verified.user;
     req.email = verified.email;
     next();

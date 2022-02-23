@@ -1,12 +1,14 @@
 import React, { useState, useEffect, createContext } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import url from 'url'
-
 const AuthContext = createContext();
 
 function AuthContextProvider(props) {
+
+  let history = useHistory();
   const [loggedIn, setLoggedIn] = useState(undefined);
   const toastSuccess = (message) => toast.success(message, {
     position: "top-right",
@@ -34,12 +36,17 @@ function AuthContextProvider(props) {
     try{
       await axios.get("http://localhost:5000/auth/loggedIn")
       .then(res => {
-        const message = "Hello! " + res.data.username + ", Welcome to Agri+"
-        toastSuccess(message);
-        setLoggedIn(res.data);
+        if(res.data.loggedIn){
+          const message = "Hello! " + res.data.username + ", Welcome to Agri+"
+          toastSuccess(message);
+          setLoggedIn(res.data);
+        }else{
+          console.log("Here")
+        }
       })
 
     }catch(err){
+      history.push("/client/login");
       toastError("User Not Logged In")
     }
     

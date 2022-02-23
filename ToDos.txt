@@ -1,0 +1,2 @@
+Notification to seller on Order
+Email after registration

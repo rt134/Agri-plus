@@ -15,6 +15,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 
 import Grid from '@material-ui/core/Grid';
+import Payment from "../../payment/Payment.js";
 
 const styles = {
   cardCategoryWhite: {
@@ -178,7 +179,7 @@ const Cart = props => {
               </CardBody>
               <CardFooter>
                 <h3>Total payable amount : {total}</h3>
-                <Button type="submit" color="success">Checkout</Button>
+                <Payment amount={total}/>
               </CardFooter>
             </Card>
           </form>
